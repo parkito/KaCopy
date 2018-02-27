@@ -1,0 +1,19 @@
+group 'com.parkito.kacopy'
+version '0.0.1-SNAPSHOT'
+
+apply plugin: 'java'
+apply from: rootProject.projectDir.path + '/dependencies.gradle'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile "org.slf4j:slf4j-api:$self4jVersion"
+    //test
+    testCompile "org.junit.jupiter:junit-jupiter-api:$jUnitApiVersion"
+    testCompile "org.junit.jupiter:junit-jupiter-engine:$jUnitEngineVersion"
+}
