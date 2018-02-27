@@ -1,7 +1,6 @@
 syntax: glob
 *.idea
 .gradle/
-/gradle/
 /*/gradle/
 /target/
 /*/target/
