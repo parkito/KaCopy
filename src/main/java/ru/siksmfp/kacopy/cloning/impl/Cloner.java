@@ -33,13 +33,13 @@ import java.util.regex.Pattern;
  */
 public class Cloner {
     private final IInstantiationStrategy instantiationStrategy;
-    private final Set<Class<?>> ignored = new HashSet<Class<?>>();
-    private final Set<Class<?>> ignoredInstanceOf = new HashSet<Class<?>>();
-    private final Set<Class<?>> nullInstead = new HashSet<Class<?>>();
-    private final Map<Class<?>, IFastCloner> fastCloners = new HashMap<Class<?>, IFastCloner>();
-    private final Map<Object, Boolean> ignoredInstances = new IdentityHashMap<Object, Boolean>();
-    private final ConcurrentHashMap<Class<?>, List<Field>> fieldsCache = new ConcurrentHashMap<Class<?>, List<Field>>();
-    private final List<ICloningStrategy> cloningStrategies = new LinkedList<ICloningStrategy>();
+    private final Set<Class<?>> ignored = new HashSet<>();
+    private final Set<Class<?>> ignoredInstanceOf = new HashSet<>();
+    private final Set<Class<?>> nullInstead = new HashSet<>();
+    private final Map<Class<?>, IFastCloner> fastCloners = new HashMap<>();
+    private final Map<Object, Boolean> ignoredInstances = new IdentityHashMap<>();
+    private final ConcurrentHashMap<Class<?>, List<Field>> fieldsCache = new ConcurrentHashMap<>();
+    private final List<ICloningStrategy> cloningStrategies = new LinkedList<>();
 
     public IDumpCloned getDumpCloned() {
         return dumpCloned;
@@ -603,7 +603,9 @@ public class Cloner {
                     System.out.println("cloned field>" + field + "  -- of class " + clz);
                 }
             };
-        } else dumpCloned = null;
+        } else {
+            dumpCloned = null;
+        }
     }
 
     public boolean isCloningEnabled() {
