@@ -1,6 +1,6 @@
 package ru.siksmfp.kacopy.objenesis.strategy;
 
-import ru.siksmfp.kacopy.objenesis.ObjenesisException;
+import ru.siksmfp.kacopy.exception.ObjenesisException;
 import ru.siksmfp.kacopy.objenesis.instantiator.ObjectInstantiator;
 
 import java.lang.reflect.Constructor;

@@ -1,7 +1,13 @@
-package ru.siksmfp.kacopy.cloning;
+package ru.siksmfp.kacopy.cloning.impl;
+
+import ru.siksmfp.kacopy.cloning.api.ICloningStrategy;
 
 import java.lang.reflect.Field;
 
+/**
+ * @author Artem Karnov @date 3/1/2018.
+ * @email artem.karnov@t-systems.com
+ */
 public class CloningStrategyFactory {
     public static ICloningStrategy annotatedField(final Class annotationClass, final ICloningStrategy.Strategy strategy) {
         return new ICloningStrategy() {

@@ -1,6 +1,6 @@
 package ru.siksmfp.kacopy.objenesis.instantiator.basic;
 
-import ru.siksmfp.kacopy.objenesis.ObjenesisException;
+import ru.siksmfp.kacopy.exception.ObjenesisException;
 import ru.siksmfp.kacopy.objenesis.instantiator.ObjectInstantiator;
 import ru.siksmfp.kacopy.objenesis.instantiator.annotations.Instantiator;
 import ru.siksmfp.kacopy.objenesis.instantiator.annotations.Typology;
@@ -158,7 +158,6 @@ public class ProxyingInstantiator<T> implements ObjectInstantiator<T> {
 
             // class attributes
             in.writeShort(0); // none. No need to have a source file attribute
-
 
         } catch (IOException e) {
             throw new ObjenesisException(e);

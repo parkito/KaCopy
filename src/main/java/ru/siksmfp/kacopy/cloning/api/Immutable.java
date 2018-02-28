@@ -1,4 +1,4 @@
-package ru.siksmfp.kacopy.cloning;
+package ru.siksmfp.kacopy.cloning.api;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
@@ -7,7 +7,10 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * marks the specific class as immutable and the cloner avoids cloning it
+ * Marks the specific class as immutable and the cloner avoids cloning it
+ *
+ * @author Artem Karnov @date 3/1/2018.
+ * @email artem.karnov@t-systems.com
  */
 @Target(TYPE)
 @Retention(RUNTIME)

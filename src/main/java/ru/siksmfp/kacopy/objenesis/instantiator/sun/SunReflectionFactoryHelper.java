@@ -1,6 +1,6 @@
 package ru.siksmfp.kacopy.objenesis.instantiator.sun;
 
-import ru.siksmfp.kacopy.objenesis.ObjenesisException;
+import ru.siksmfp.kacopy.exception.ObjenesisException;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;

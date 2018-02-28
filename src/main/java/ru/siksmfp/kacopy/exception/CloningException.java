@@ -1,4 +1,4 @@
-package ru.siksmfp.kacopy.cloning;
+package ru.siksmfp.kacopy.exception;
 
 public class CloningException extends RuntimeException {
     private static final long serialVersionUID = 3815175312001146867L;

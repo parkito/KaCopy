@@ -1,8 +1,15 @@
-package ru.siksmfp.kacopy.cloning;
+package ru.siksmfp.kacopy.cloning.impl;
+
+import ru.siksmfp.kacopy.cloning.api.IDeepCloner;
+import ru.siksmfp.kacopy.cloning.api.IFastCloner;
 
 import java.util.Collection;
 import java.util.Map;
 
+/**
+ * @author Artem Karnov @date 3/1/2018.
+ * @email artem.karnov@t-systems.com
+ */
 @SuppressWarnings({"unchecked", "rawtypes"})
 public abstract class FastClonerCustomCollection<T extends Collection> implements IFastCloner {
     public abstract T getInstance(T o);

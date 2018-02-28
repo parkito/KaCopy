@@ -1,9 +1,12 @@
-package ru.siksmfp.kacopy.cloning;
+package ru.siksmfp.kacopy.cloning.api;
 
 import java.util.Map;
 
 /**
- * used by fast cloners to deep clone objects
+ * Used by fast cloners to deep clone objects
+ *
+ * @author Artem Karnov @date 3/1/2018.
+ * @email artem.karnov@t-systems.com
  */
 public interface IDeepCloner {
     /**

@@ -1,4 +1,7 @@
-package ru.siksmfp.kacopy.cloning;
+package ru.siksmfp.kacopy.cloning.impl;
+
+import ru.siksmfp.kacopy.cloning.api.*;
+import ru.siksmfp.kacopy.exception.CloningException;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Array;
@@ -24,6 +27,10 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Pattern;
 
+/**
+ * @author Artem Karnov @date 3/1/2018.
+ * @email artem.karnov@t-systems.com
+ */
 public class Cloner {
     private final IInstantiationStrategy instantiationStrategy;
     private final Set<Class<?>> ignored = new HashSet<Class<?>>();

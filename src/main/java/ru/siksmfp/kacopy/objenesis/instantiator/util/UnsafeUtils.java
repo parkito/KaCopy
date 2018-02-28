@@ -1,7 +1,7 @@
 
 package ru.siksmfp.kacopy.objenesis.instantiator.util;
 
-import ru.siksmfp.kacopy.objenesis.ObjenesisException;
+import ru.siksmfp.kacopy.exception.ObjenesisException;
 import sun.misc.Unsafe;
 
 import java.lang.reflect.Field;

@@ -1,7 +1,7 @@
 
 package ru.siksmfp.kacopy.objenesis.instantiator.sun;
 
-import ru.siksmfp.kacopy.objenesis.ObjenesisException;
+import ru.siksmfp.kacopy.exception.ObjenesisException;
 import ru.siksmfp.kacopy.objenesis.instantiator.ObjectInstantiator;
 import ru.siksmfp.kacopy.objenesis.instantiator.SerializationInstantiatorHelper;
 import ru.siksmfp.kacopy.objenesis.instantiator.annotations.Instantiator;

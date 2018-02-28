@@ -1,4 +1,4 @@
-package ru.siksmfp.kacopy.objenesis;
+package ru.siksmfp.kacopy.exception;
 
 /**
  * Exception thrown by Objenesis. It wraps any instantiation exceptions. Note that this exception is

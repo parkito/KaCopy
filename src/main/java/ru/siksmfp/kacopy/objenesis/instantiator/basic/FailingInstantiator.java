@@ -1,6 +1,6 @@
 package ru.siksmfp.kacopy.objenesis.instantiator.basic;
 
-import ru.siksmfp.kacopy.objenesis.ObjenesisException;
+import ru.siksmfp.kacopy.exception.ObjenesisException;
 import ru.siksmfp.kacopy.objenesis.instantiator.ObjectInstantiator;
 import ru.siksmfp.kacopy.objenesis.instantiator.annotations.Instantiator;
 import ru.siksmfp.kacopy.objenesis.instantiator.annotations.Typology;

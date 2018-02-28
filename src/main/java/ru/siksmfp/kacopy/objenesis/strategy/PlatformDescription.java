@@ -1,6 +1,6 @@
 package ru.siksmfp.kacopy.objenesis.strategy;
 
-import ru.siksmfp.kacopy.objenesis.ObjenesisException;
+import ru.siksmfp.kacopy.exception.ObjenesisException;
 
 import java.lang.reflect.Field;
 
