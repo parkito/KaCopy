@@ -5,16 +5,16 @@ import ru.siksmfp.kacopy.objenesis.instantiator.ObjectInstantiator;
 import java.io.Serializable;
 
 /**
- * Use Objenesis in a static way. <strong>It is strongly not recommended to use this class.</strong>
+ * Use Instanter in a static way. <strong>It is strongly not recommended to use this class.</strong>
  *
  * @author Artem Karnov @date 2/28/2018.
  * @email artem.karnov@t-systems.com
  */
 public final class ObjenesisHelper {
 
-    private static final Objenesis OBJENESIS_STD = new ObjenesisStd();
+    private static final Instanter INSTANTER_STD = new InstanterStd();
 
-    private static final Objenesis OBJENESIS_SERIALIZER = new ObjenesisSerializer();
+    private static final Instanter INSTANTER_SERIALIZER = new InstanterSerializer();
 
     private ObjenesisHelper() {
     }
@@ -27,7 +27,7 @@ public final class ObjenesisHelper {
      * @return New instance of clazz
      */
     public static <T> T newInstance(Class<T> clazz) {
-        return OBJENESIS_STD.newInstance(clazz);
+        return INSTANTER_STD.newInstance(clazz);
     }
 
     /**
@@ -39,7 +39,7 @@ public final class ObjenesisHelper {
      * @return New instance of clazz
      */
     public static <T extends Serializable> T newSerializableInstance(Class<T> clazz) {
-        return (T) OBJENESIS_SERIALIZER.newInstance(clazz);
+        return (T) INSTANTER_SERIALIZER.newInstance(clazz);
     }
 
     /**
@@ -52,7 +52,7 @@ public final class ObjenesisHelper {
      * @return Instantiator dedicated to the class
      */
     public static <T> ObjectInstantiator<T> getInstantiatorOf(Class<T> clazz) {
-        return OBJENESIS_STD.getInstantiatorOf(clazz);
+        return INSTANTER_STD.getInstantiatorOf(clazz);
     }
 
     /**
@@ -65,6 +65,6 @@ public final class ObjenesisHelper {
      * @see #newSerializableInstance(Class)
      */
     public static <T extends Serializable> ObjectInstantiator<T> getSerializableObjectInstantiatorOf(Class<T> clazz) {
-        return OBJENESIS_SERIALIZER.getInstantiatorOf(clazz);
+        return INSTANTER_SERIALIZER.getInstantiatorOf(clazz);
     }
 }

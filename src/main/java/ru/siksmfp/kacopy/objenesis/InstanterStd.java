@@ -6,13 +6,13 @@ import ru.siksmfp.kacopy.objenesis.strategy.StdInstantiatorStrategy;
  * @author Artem Karnov @date 2/28/2018.
  * @email artem.karnov@t-systems.com
  */
-public class ObjenesisStd extends ObjenesisBase {
+public class InstanterStd extends InstanterBase {
 
-    public ObjenesisStd() {
+    public InstanterStd() {
         super(new StdInstantiatorStrategy());
     }
 
-    public ObjenesisStd(boolean useCache) {
+    public InstanterStd(boolean useCache) {
         super(new StdInstantiatorStrategy(), useCache);
     }
 }

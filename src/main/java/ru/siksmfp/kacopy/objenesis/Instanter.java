@@ -3,12 +3,12 @@ package ru.siksmfp.kacopy.objenesis;
 import ru.siksmfp.kacopy.objenesis.instantiator.ObjectInstantiator;
 
 /**
- * Common interface to all kind of Objenesis objects
+ * Common interface to all kind of Instanter objects
  *
  * @author Artem Karnov @date 2/28/2018.
  * @email artem.karnov@t-systems.com
  */
-public interface Objenesis {
+public interface Instanter {
 
     /**
      * Will create a new object without any constructor being called

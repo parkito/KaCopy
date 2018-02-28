@@ -35,7 +35,7 @@ public class ProxyingInstantiator<T> implements ObjectInstantiator<T> {
     private static final byte[] CODE = {ClassDefinitionUtils.OPS_aload_0, ClassDefinitionUtils.OPS_return};
     private static final int CODE_ATTRIBUTE_LENGTH = 12 + CODE.length;
 
-    private static final String SUFFIX = "$$$Objenesis";
+    private static final String SUFFIX = "$$$Instanter";
 
     private static final String CONSTRUCTOR_NAME = "<init>";
     private static final String CONSTRUCTOR_DESC = "()V";

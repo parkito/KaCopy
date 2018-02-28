@@ -1,7 +1,7 @@
 package ru.siksmfp.kacopy.exception;
 
 /**
- * Exception thrown by Objenesis. It wraps any instantiation exceptions. Note that this exception is
+ * Exception thrown by Instanter. It wraps any instantiation exceptions. Note that this exception is
  * runtime to prevent having to catch it.
  *
  * @author Artem Karnov @date 2/28/2018.

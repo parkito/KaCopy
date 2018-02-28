@@ -13,7 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author Artem Karnov @date 2/28/2018.
  * @email artem.karnov@t-systems.com
  */
-public class ObjenesisBase implements Objenesis {
+public class InstanterBase implements Instanter {
 
     /**
      * Strategy used by this Objenesi implementation to create classes
@@ -31,7 +31,7 @@ public class ObjenesisBase implements Objenesis {
      * @param strategy Strategy to use
      */
 
-    public ObjenesisBase(InstantiatorStrategy strategy) {
+    public InstanterBase(InstantiatorStrategy strategy) {
         this(strategy, true);
     }
 
@@ -41,7 +41,7 @@ public class ObjenesisBase implements Objenesis {
      * @param strategy Strategy to use
      * @param useCache If {@link ObjectInstantiator}s should be cached
      */
-    public ObjenesisBase(InstantiatorStrategy strategy, boolean useCache) {
+    public InstanterBase(InstantiatorStrategy strategy, boolean useCache) {
         if (strategy == null) {
             throw new IllegalArgumentException("A strategy can't be null");
         }

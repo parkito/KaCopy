@@ -7,7 +7,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 /**
- * Strategy returning only one instantiator type. Useful if you know on which JVM Objenesis
+ * Strategy returning only one instantiator type. Useful if you know on which JVM Instanter
  * will be used and want to specify it explicitly.
  *
  * @author Artem Karnov @date 2/28/2018.
