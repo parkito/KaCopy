@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * https://vyazelenko.com/2013/10/29/copy-object-in-java-performance-comparison/
+ */
 public class SimpleCloneMaker {
 
     public <T> T simpleDeepClone(T object, Instanter instanter) throws IllegalAccessException {
