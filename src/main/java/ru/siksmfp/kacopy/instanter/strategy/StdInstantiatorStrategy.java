@@ -1,5 +1,8 @@
 package ru.siksmfp.kacopy.instanter.strategy;
 
+import ru.siksmfp.kacopy.instanter.android.Android10Instantiator;
+import ru.siksmfp.kacopy.instanter.android.Android17Instantiator;
+import ru.siksmfp.kacopy.instanter.android.Android18Instantiator;
 import ru.siksmfp.kacopy.instanter.api.ObjectInstantiator;
 import ru.siksmfp.kacopy.instanter.basic.AccessibleInstantiator;
 import ru.siksmfp.kacopy.instanter.basic.ObjectInputStreamInstantiator;
@@ -9,6 +12,9 @@ import ru.siksmfp.kacopy.instanter.sun.SunReflectionFactoryInstantiator;
 import ru.siksmfp.kacopy.instanter.sun.UnsafeFactoryInstantiator;
 
 import java.io.Serializable;
+
+import static ru.siksmfp.kacopy.instanter.strategy.PlatformDescription.ANDROID_VERSION;
+import static ru.siksmfp.kacopy.instanter.strategy.PlatformDescription.DALVIK;
 
 /**
  * Guess the best instantiator for a given class. The instantiator will instantiate the class
@@ -47,6 +53,21 @@ public class StdInstantiatorStrategy extends BaseInstantiatorStrategy {
             // The UnsafeFactoryInstantiator would also work. But according to benchmarks, it is 2.5
             // times slower. So we prefer to use this one
             return new SunReflectionFactoryInstantiator<T>(type);
+        } else if (PlatformDescription.isThisJVM(DALVIK)) {
+            if (PlatformDescription.isAndroidOpenJDK()) {
+                // Starting at Android N which is based on OpenJDK
+                return new UnsafeFactoryInstantiator<T>(type);
+            }
+            if (ANDROID_VERSION <= 10) {
+                // Android 2.3 Gingerbread and lower
+                return new Android10Instantiator<T>(type);
+            }
+            if (ANDROID_VERSION <= 17) {
+                // Android 3.0 Honeycomb to 4.2 Jelly Bean
+                return new Android17Instantiator<T>(type);
+            }
+            // Android 4.3 until Android N
+            return new Android18Instantiator<T>(type);
         } else if (PlatformDescription.isThisJVM(PlatformDescription.JROCKIT)) {
             // JRockit is compliant with HotSpot
             return new SunReflectionFactoryInstantiator<T>(type);
