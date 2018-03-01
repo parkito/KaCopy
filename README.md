@@ -1,20 +1,18 @@
 <h1 align="center">
   <br>
-   <img src="https://s8.hostingkartinok.com/uploads/images/2018/03/9b922d7e62247a4399e107baa05d398c.png" alt="Logo ArrayMixer" title="Main Logo" />
+   <img src="https://s8.hostingkartinok.com/uploads/images/2018/03/68b491a97174353014a1f92aaecba400.png" alt="Logo ArrayMixer" title="KaCopy logo" />
   <br>
 </h1>
 <p align="center">  
 <a href="https://www.codacy.com/app/josetelesmaciel/array-mixer?utm_source=github.com&utm_medium=referral&utm_content=teles/array-mixer&utm_campaign=badger"><img src="https://api.codacy.com/project/badge/Grade/2cbd62dd3c284ce79f6e2c35817bec12"></a>
 <a href="https://www.codacy.com/app/josetelesmaciel/array-mixer?utm_source=github.com&utm_medium=referral&utm_content=teles/array-mixer&utm_campaign=Badge_Coverage"><img src="https://api.codacy.com/project/badge/Coverage/8a941e0f57c047c8a481f4854666b42d"></a>
 <a href="https://travis-ci.org/teles/array-mixer"><img src="https://travis-ci.org/teles/array-mixer.svg?branch=master"></a>
-<a href="https://www.npmjs.com/package/array-mixer"><img src="https://img.shields.io/npm/v/array-mixer.svg"></a>
 <a href="https://gitter.im/array-mixer/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge"><img src="https://badges.gitter.im/array-mixer/Lobby.svg"></a>
  <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/license-MIT-blue.svg"></a>
 </p>
 
 <p align="center">
   <strong>KaCopy</strong> is the library for deep copying java objects.
-To Do
 </p>
 
 ## Table of contents
@@ -23,21 +21,17 @@ To Do
   * [Installation](#installation)
      * [Gradle](#gradle)
      * [Maven](#maven)
-  * [Parameters](#parameters)
-     * [Aliases](#aliases)
-     * [Sequence](#sequence)
+  * [Api](#api)
+     * [OOP](#aliases)
+     * [Utils](#sequence)
+  * [Versions](#versions)
+     * [Version table](#aliases)
   * [Examples](#examples)
      * [Example 1) For every 7 photos display an ad:](#example-1-for-every-7-photos-display-an-ad)
-     * [Example 2) For every 4 paragraphs of text include 2 images:](#example-2-for-every-4-paragraphs-of-text-include-2-images)
-     * [Example 3) In a group of 8 related links reserve positions 5 and 6 for sponsored links:](#example-3-in-a-group-of-8-related-links-reserve-positions-5-and-6-for-sponsored-links)
-     * [Example 4) Display a list of songs including the most successful songs for every 10 songs:](#example-4-display-a-list-of-songs-including-the-most-successful-songs-for-every-10-songs)
-     * [Example 5) You can also use larger aliases and the ES6 object shorthand:](#example-5-you-can-also-use-larger-aliases-and-the-es6-object-shorthand)
-     * [Example 6) View photos of puppies, kittens and penguins in sequence:](#example-6-view-photos-of-puppies-kittens-and-penguins-in-sequence)
-     * [Example 7) Include 1 large photo for every 2 medium size photos followed by 3 small photos:](#example-7-include-1-large-photo-for-every-2-medium-size-photos-followed-by-3-small-photos)
      * [More examples](#more-examples)
   * [Contributing](#contributing)
+    * [Contributing](#contributing)
   * [License](#license)
-  * [Special thanks](#special-thanks)
 
 ## Common usage
 
@@ -51,55 +45,28 @@ ads.length === 6; // true
 Use `ArrayMixer` to create a new array containing **2 photos** followed by **1 ad** until the end of both arrays.
 
 
+## Installation
 
-
-### Node projects
-
-Requires node version **5.7 or later**.
+### Maven
 
 ```bash
 npm install array-mixer --save
 ```
 
-Import it to your code using:
+### Gradle
 
-```javascript
-const ArrayMixer = require("array-mixer");
+```bash
+npm install array-mixer --save
 ```
 
-### Web projects
+## API
 
-[Download latest ES5 transpiled version from unpkg.com](https://unpkg.com/array-mixer@0.7.2/release/array-mixer.js).
+### OOP
 
-Import *ES5* transpiled version to your code.
-
-```html
-<script src="https://unpkg.com/array-mixer@0.7.2/release/array-mixer.js"></script>
-```
-
-## Parameters
-
-<img src="https://placeholdit.imgix.net/~text?txtsize=22&txtclr=fff&bg=c0392b&txt=Aliases&w=100&h=48" align="left">
-<img src="https://placeholdit.imgix.net/~text?txtsize=22&txtclr=fff&bg=3498db&txt=Sequence&w=115&h=48">
-
-`ArrayMixer` has only two mandatory parameters.
-
-```javascript
-let aliases = {M:myArray, O:otherArray};
-let sequence = ["3M", "5O"];
-
-let mixed = ArrayMixer(aliases, sequence);
-```
+### Utils
 
 
-### Aliases
-
-This parameter **should be** an object with keys used as alias for sequence and key values pointing to avaliable arrays.
-
-
-### Sequence
-
-This parameters uses the aliases defined on **aliases** parameter to create a sequence order to display the arrays.
+## Versions
 
 ## Examples
 
@@ -116,40 +83,6 @@ ArrayMixer({F: Photos, A: Ads}, ["7P", "1A"]);
 ```javascript
 ArrayMixer({F: Photos, A: Ads}, ["7P", "A"]);
 ```
-
-### Example 2) For every 4 paragraphs of text include 2 images:
-```javascript
-ArrayMixer({P: paragraphs, I: images}, ["4P", "2I"]);
-```
-
-### Example 3) In a group of 8 related links reserve positions 5 and 6 for sponsored links:
-```javascript
-ArrayMixer({R: related, S: sponsored}, ["4R", "2S", "2R"]);
-```
-
-### Example 4) Display a list of songs including the most successful songs for every 10 songs:
-```javascript
-ArrayMixer({M: musics, H: hits}, ["10M", "2H"]);
-```
-
-### Example 5) You can also use larger aliases and the ES6 object shorthand:
-```javascript
-ArrayMixer({days, weekend}, ["5days", "2weekend"]);
-```
-
-You can manipulate more than two vectors at a time, as in the following example:
- 
-### Example 6) View photos of puppies, kittens and penguins in sequence:
-
-
-### Example 7) Include 1 large photo for every 2 medium size photos followed by 3 small photos:
-
-**Tip:** `ArrayMixer` lets you mix three or more arrays at once.
-
-```javascript 
-ArrayMixer({L:large, M:medium, S:small}, ["2M", "3S", "L"]);
-```
-
 > **Disclaimer**: All arrays mentioned in this section must exist for the examples to work.
 
 ### More examples
@@ -163,4 +96,4 @@ or translating any document here to your language. [Find more information in CON
 
 ## License
 
-[MIT](LICENSE)
+[MIT](https://github.com/parkito/KaCopy/blob/master/LICENSE)
