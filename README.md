@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-   <img src="https://openclipart.org/image/480px/svg_to_png/287053/1505709521.png&disposition=attachment" alt="Logo ArrayMixer" title="Logo ArrayMixer by  cliparteles ( https://openclipart.org/user-detail/cliparteles )" />
+   <img src="https://s8.hostingkartinok.com/uploads/images/2018/03/5c2776d806d29abe9346dcc74f5a2fd4.png" alt="Logo ArrayMixer" title="Logo ArrayMixer by  cliparteles ( https://openclipart.org/user-detail/cliparteles )" />
   <br>
 </h1>
 <p align="center">  
