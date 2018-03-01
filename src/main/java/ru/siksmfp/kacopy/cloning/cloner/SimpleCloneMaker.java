@@ -3,6 +3,7 @@ package ru.siksmfp.kacopy.cloning.cloner;
 import ru.siksmfp.kacopy.objenesis.Instanter;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -19,11 +20,11 @@ public class SimpleCloneMaker {
 
         for (Field field : fields) {
             field.setAccessible(true);
-//            final int modifiers = field.getModifiers();
-//            if (!Modifier.isStatic(modifiers)) {
-            Object currentFieldValue = field.get(object);
-            field.set(newInstance, currentFieldValue);
-//            }
+            final int modifiers = field.getModifiers();
+            if (!Modifier.isStatic(modifiers)) {
+                Object currentFieldValue = field.get(object);
+                field.set(newInstance, currentFieldValue);
+            }
         }
 
         return newInstance;
