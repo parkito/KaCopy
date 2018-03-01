@@ -62,7 +62,7 @@ public class Cloner {
     private boolean cloneSynthetics = true;
 
     public Cloner() {
-        this.instantiationStrategy = ObjenesisInstantiationStrategy.getInstance();
+        this.instantiationStrategy = InstanterStrategy.getInstance();
         init();
     }
 
@@ -640,7 +640,7 @@ public class Cloner {
      * see https://code.google.com/p/cloning/issues/detail?id=23
      */
     public static Cloner shared() {
-        return new Cloner(new ObjenesisInstantiationStrategy());
+        return new Cloner(new InstanterStrategy());
     }
 
 }

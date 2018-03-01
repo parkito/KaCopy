@@ -2,8 +2,8 @@ package ru.siksmfp.kacopy.api;
 
 import ru.siksmfp.kacopy.cloning.cloner.SimpleCloneMaker;
 import ru.siksmfp.kacopy.exception.CloningException;
-import ru.siksmfp.kacopy.objenesis.Instanter;
-import ru.siksmfp.kacopy.objenesis.InstanterStd;
+import ru.siksmfp.kacopy.instanter.api.Instanter;
+import ru.siksmfp.kacopy.instanter.types.InstanterStd;
 
 /**
  * @author Artem Karnov @date 3/1/2018.

@@ -1,6 +1,6 @@
 package ru.siksmfp.kacopy.cloning.cloner;
 
-import ru.siksmfp.kacopy.objenesis.Instanter;
+import ru.siksmfp.kacopy.instanter.api.Instanter;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
