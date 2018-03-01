@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-   <img src="https://s8.hostingkartinok.com/uploads/images/2018/03/5c2776d806d29abe9346dcc74f5a2fd4.png" alt="Logo ArrayMixer" title="Logo ArrayMixer by  cliparteles ( https://openclipart.org/user-detail/cliparteles )" />
+   <img src="https://s8.hostingkartinok.com/uploads/images/2018/03/9b922d7e62247a4399e107baa05d398c.png" alt="Logo ArrayMixer" title="Main Logo" />
   <br>
 </h1>
 <p align="center">  
@@ -21,8 +21,8 @@ To Do
 
   * [Common usage](#common-usage)
   * [Installation](#installation)
-     * [Node projects](#node-projects)
-     * [Web projects](#web-projects)
+     * [Gradle](#gradle)
+     * [Maven](#maven)
   * [Parameters](#parameters)
      * [Aliases](#aliases)
      * [Sequence](#sequence)
@@ -51,36 +51,7 @@ ads.length === 6; // true
 Use `ArrayMixer` to create a new array containing **2 photos** followed by **1 ad** until the end of both arrays.
 
 
-```javascript
-let mixedArray = ArrayMixer({P:photos, A:ads}, ["2P", "1A"]);
-```
 
-So `mixedArray` will contain:
-
-<table>
-<img src="https://placeholdit.imgix.net/~text?txtsize=26&txtclr=fff&bg=c0392b&txt=P[0]&w=78&h=78" align="left" vspace="10">
-<img src="https://placeholdit.imgix.net/~text?txtsize=26&txtclr=fff&bg=c0392b&txt=P[1]&w=78&h=78" align="left" vspace="10">
-<img src="https://placeholdit.imgix.net/~text?txtsize=26&txtclr=fff&bg=3498db&txt=A[0]&w=78&h=78" align="left" vspace="10">
-<img src="https://placeholdit.imgix.net/~text?txtsize=26&txtclr=fff&bg=c0392b&txt=P[2]&w=78&h=78" align="left" vspace="10">
-<img src="https://placeholdit.imgix.net/~text?txtsize=26&txtclr=fff&bg=c0392b&txt=P[3]&w=78&h=78" align="left" vspace="10">
-<img src="https://placeholdit.imgix.net/~text?txtsize=26&txtclr=fff&bg=3498db&txt=A[1]&w=78&h=78" align="left" vspace="10">
-<img src="https://placeholdit.imgix.net/~text?txtsize=26&txtclr=fff&bg=c0392b&txt=P[4]&w=78&h=78" align="left" vspace="10">
-<img src="https://placeholdit.imgix.net/~text?txtsize=26&txtclr=fff&bg=c0392b&txt=P[5]&w=78&h=78" align="left" vspace="10">
-<img src="https://placeholdit.imgix.net/~text?txtsize=26&txtclr=fff&bg=3498db&txt=A[2]&w=78&h=78" align="left" vspace="10">
-<img src="https://placeholdit.imgix.net/~text?txtsize=26&txtclr=fff&bg=c0392b&txt=P[6]&w=78&h=78" align="left" vspace="10">
-<img src="https://placeholdit.imgix.net/~text?txtsize=26&txtclr=fff&bg=c0392b&txt=P[7]&w=78&h=78" align="left" vspace="10">
-<img src="https://placeholdit.imgix.net/~text?txtsize=26&txtclr=fff&bg=3498db&txt=A[3]&w=78&h=78" align="left" vspace="10">
-<img src="https://placeholdit.imgix.net/~text?txtsize=26&txtclr=fff&bg=c0392b&txt=P[8]&w=78&h=78" align="left" vspace="10">
-<img src="https://placeholdit.imgix.net/~text?txtsize=26&txtclr=fff&bg=c0392b&txt=P[9]&w=78&h=78" align="left" vspace="10">
-<img src="https://placeholdit.imgix.net/~text?txtsize=26&txtclr=fff&bg=3498db&txt=A[4]&w=78&h=78" align="left" vspace="10">
-<img src="https://placeholdit.imgix.net/~text?txtsize=26&txtclr=fff&bg=c0392b&txt=P[10]&w=78&h=78" align="left" vspace="10">
-<img src="https://placeholdit.imgix.net/~text?txtsize=26&txtclr=fff&bg=c0392b&txt=P[11]&w=78&h=78" align="left" vspace="10">
-<img src="https://placeholdit.imgix.net/~text?txtsize=26&txtclr=fff&bg=3498db&txt=A[5]&w=78&h=78" align="left" vspace="10">
-</table>
-
-<h2 id="installation">Installation</h2>
-
-`ArrayMixer` can be used in node projects and web projects.
 
 ### Node projects
 
@@ -170,13 +141,6 @@ You can manipulate more than two vectors at a time, as in the following example:
  
 ### Example 6) View photos of puppies, kittens and penguins in sequence:
 
-```javascript
-let mixed = ArrayMixer({puppies, kittens, penguins}, ["puppies", "kittens", "penguins"));
-```
-
-| `puppies`               | `kittens`               | `penguins`                          | `mixed` |
-|-----------------------|-----------------------|-----------------------------------|------------------------------------------------------------------------------|
-| [:dog:, :dog:, :dog:] | [:cat:, :cat:, :cat:] | [:penguin:, :penguin:, :penguin:] | [:dog:, :cat:, :penguin:, :dog:, :cat:, :penguin:, :dog:, :cat:, :penguin:] |
 
 ### Example 7) Include 1 large photo for every 2 medium size photos followed by 3 small photos:
 
@@ -185,26 +149,6 @@ let mixed = ArrayMixer({puppies, kittens, penguins}, ["puppies", "kittens", "pen
 ```javascript 
 ArrayMixer({L:large, M:medium, S:small}, ["2M", "3S", "L"]);
 ```
-<table>
-<img src="https://placeholdit.imgix.net/~text?txtsize=26&txtclr=fff&bg=3498db&txt=M[0]&w=78&h=78" align="left" vspace="10">
-<img src="https://placeholdit.imgix.net/~text?txtsize=26&txtclr=fff&bg=3498db&txt=M[1]&w=78&h=78" align="left" vspace="10">
-<img src="https://placeholdit.imgix.net/~text?txtsize=26&txtclr=fff&bg=c0392b&txt=S[0]&w=78&h=78" align="left" vspace="10">
-<img src="https://placeholdit.imgix.net/~text?txtsize=26&txtclr=fff&bg=c0392b&txt=S[1]&w=78&h=78" align="left" vspace="10">
-<img src="https://placeholdit.imgix.net/~text?txtsize=26&txtclr=fff&bg=c0392b&txt=S[2]&w=78&h=78" align="left" vspace="10">
-<img src="https://placeholdit.imgix.net/~text?txtsize=26&txtclr=fff&bg=27ae60&txt=L[0]&w=78&h=78" align="left" vspace="10">
-<img src="https://placeholdit.imgix.net/~text?txtsize=26&txtclr=fff&bg=3498db&txt=M[2]&w=78&h=78" align="left" vspace="10">
-<img src="https://placeholdit.imgix.net/~text?txtsize=26&txtclr=fff&bg=3498db&txt=M[3]&w=78&h=78" align="left" vspace="10">
-<img src="https://placeholdit.imgix.net/~text?txtsize=26&txtclr=fff&bg=c0392b&txt=S[3]&w=78&h=78" align="left" vspace="10">
-<img src="https://placeholdit.imgix.net/~text?txtsize=26&txtclr=fff&bg=c0392b&txt=S[4]&w=78&h=78" align="left" vspace="10">
-<img src="https://placeholdit.imgix.net/~text?txtsize=26&txtclr=fff&bg=c0392b&txt=S[5]&w=78&h=78" align="left" vspace="10">
-<img src="https://placeholdit.imgix.net/~text?txtsize=26&txtclr=fff&bg=27ae60&txt=L[1]&w=78&h=78" align="left" vspace="10">
-<img src="https://placeholdit.imgix.net/~text?txtsize=26&txtclr=fff&bg=3498db&txt=M[4]&w=78&h=78" align="left" vspace="10">
-<img src="https://placeholdit.imgix.net/~text?txtsize=26&txtclr=fff&bg=3498db&txt=M[4]&w=78&h=78" align="left" vspace="10">
-<img src="https://placeholdit.imgix.net/~text?txtsize=26&txtclr=fff&bg=c0392b&txt=S[6]&w=78&h=78" align="left" vspace="10">
-<img src="https://placeholdit.imgix.net/~text?txtsize=26&txtclr=fff&bg=c0392b&txt=S[7]&w=78&h=78" align="left" vspace="10">
-<img src="https://placeholdit.imgix.net/~text?txtsize=26&txtclr=fff&bg=c0392b&txt=S[8]&w=78&h=78" align="left" vspace="10">
-<img src="https://placeholdit.imgix.net/~text?txtsize=26&txtclr=fff&bg=27ae60&txt=L[2]&w=78&h=78" align="left" vspace="10">
-</table>
 
 > **Disclaimer**: All arrays mentioned in this section must exist for the examples to work.
 
@@ -219,9 +163,4 @@ or translating any document here to your language. [Find more information in CON
 
 ## License
 
-[MIT](LICENSE) - Jota Teles - 2017
-
-## Special thanks
-
-* [Willian Ribeiro](https://github.com/willianribeiro);
-* [João Paulo](https://github.com/jpusp);
+[MIT](LICENSE)
