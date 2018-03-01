@@ -4,19 +4,22 @@
   <br>
 </h1>
 <p align="center">  
-<a href="https://www.codacy.com/app/josetelesmaciel/array-mixer?utm_source=github.com&utm_medium=referral&utm_content=teles/array-mixer&utm_campaign=badger"><img src="https://api.codacy.com/project/badge/Grade/2cbd62dd3c284ce79f6e2c35817bec12"></a>
-<a href="https://www.codacy.com/app/josetelesmaciel/array-mixer?utm_source=github.com&utm_medium=referral&utm_content=teles/array-mixer&utm_campaign=Badge_Coverage"><img src="https://api.codacy.com/project/badge/Coverage/8a941e0f57c047c8a481f4854666b42d"></a>
-<a href="https://travis-ci.org/teles/array-mixer"><img src="https://travis-ci.org/teles/array-mixer.svg?branch=master"></a>
-<a href="https://gitter.im/array-mixer/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge"><img src="https://badges.gitter.im/array-mixer/Lobby.svg"></a>
+<a href="https://www.codacy.com/app/parkito/KaCopy?utm_source=github.com&utm_medium=referral&utm_content=parkito/KaCopy&utm_campaign=badger"><img src="https://api.codacy.com/project/badge/Grade/f57835866b44434eb3676675f86c7b76"></a>
+<a href="https://www.codacy.com/app/parkito/KaCopy?utm_source=github.com&utm_medium=referral&utm_content=parkito/KaCopy&utm_campaign=Badge_Coverage"><img src="https://api.codacy.com/project/badge/Coverage/8a941e0f57c047c8a481f4854666b42d"></a>
+<a href="https://travis-ci.org/parkito/KaCopy"><img src="https://travis-ci.org/teles/array-mixer.svg?branch=master"></a>
  <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/license-MIT-blue.svg"></a>
 </p>
 
 <p align="center">
-  <strong>KaCopy</strong> is the library for deep copying java objects.
-</p>
+  <strong>KaCopy</strong> is the library for deep copying java objects uses reflections
+  for high effectiveness. </p>
+  
+  It uses concepts of [Deep cloning library](https://github.com/kostaskougios/cloning) and 
+  [Objenesis library](https://github.com/easymock/objenesis)
 
 ## Table of contents
 
+  * [Theory](#theory) 
   * [Common usage](#common-usage)
   * [Installation](#installation)
      * [Gradle](#gradle)
@@ -29,70 +32,68 @@
   * [Examples](#examples)
      * [Example 1) For every 7 photos display an ad:](#example-1-for-every-7-photos-display-an-ad)
      * [More examples](#more-examples)
-  * [Contributing](#contributing)
-    * [Contributing](#contributing)
   * [License](#license)
+
+## Theory
+Cloning means creating a new object from an already presented object and
+copying all data of given object to that new object.
+
+Deep copy is creating a new object and then copying the non-static
+fields of the current object to the new object. If a field
+is a value type, a bit by bit copy of the field is performed.
+If a field is a reference type, a new copy of the referred
+object is performed. A deep copy of an object is a new object with
+entirely new instance variables, it does not share objects with the old.
+
 
 ## Common usage
 
-Let's think we have two arrays:  **photos** and **ads**.
+Content will be here very soon
 
-```javascript
-photos.length === 12; // true
-ads.length === 6; // true
+```java
+// Content will be here very soon
 ```
-
-Use `ArrayMixer` to create a new array containing **2 photos** followed by **1 ad** until the end of both arrays.
-
 
 ## Installation
 
 ### Maven
 
 ```bash
-npm install array-mixer --save
+Content will be here very soon
 ```
 
 ### Gradle
 
 ```bash
-npm install array-mixer --save
+Content will be here very soon
 ```
 
 ## API
 
-### OOP
+#### OOP
 
-### Utils
+
+#### Utils
 
 
 ## Versions
 
+
 ## Examples
 
-`ArrayMixer` can be used combining different arrays, aliases and sequences.
-The following examples shows some ways to use it.
+`Content will be here very soon` Content will be here very soon.
 
-### Example 1) For every 7 photos display an ad:
+### Example 1) OOP-style
 
-```javascript
-ArrayMixer({F: Photos, A: Ads}, ["7P", "1A"]);
+```java
+// Content will be here very soon
 ```
 **or** (as number 1 on sequence can be ommited):
 
-```javascript
-ArrayMixer({F: Photos, A: Ads}, ["7P", "A"]);
+```java
+// Content will be here very soon
 ```
 > **Disclaimer**: All arrays mentioned in this section must exist for the examples to work.
-
-### More examples
-
-For more example please check the [specification file](src/spec.js).
-
-## Contributing
-
-You may contribute in several ways like creating new features, fixing bugs, improving documentation and examples
-or translating any document here to your language. [Find more information in CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
 
