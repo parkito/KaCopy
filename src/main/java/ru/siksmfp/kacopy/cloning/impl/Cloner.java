@@ -1,6 +1,12 @@
 package ru.siksmfp.kacopy.cloning.impl;
 
-import ru.siksmfp.kacopy.cloning.api.*;
+import ru.siksmfp.kacopy.cloning.api.ICloningStrategy;
+import ru.siksmfp.kacopy.cloning.api.IDeepCloner;
+import ru.siksmfp.kacopy.cloning.api.IDumpCloned;
+import ru.siksmfp.kacopy.cloning.api.IFastCloner;
+import ru.siksmfp.kacopy.cloning.api.IFreezable;
+import ru.siksmfp.kacopy.cloning.api.IInstantiationStrategy;
+import ru.siksmfp.kacopy.cloning.api.Immutable;
 import ru.siksmfp.kacopy.exception.CloningException;
 
 import java.lang.annotation.Annotation;
@@ -12,6 +18,7 @@ import java.math.BigInteger;
 import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -99,7 +106,7 @@ public class Cloner {
     /**
      * registers a std set of fast cloners.
      */
-    protected void registerFastCloners() {
+    private void registerFastCloners() {
         fastCloners.put(GregorianCalendar.class, new FastClonerCalendar());
         fastCloners.put(ArrayList.class, new FastClonerArrayList());
         fastCloners.put(LinkedList.class, new FastClonerLinkedList());
@@ -121,7 +128,7 @@ public class Cloner {
         }
     };
 
-    protected Object fastClone(final Object o, final Map<Object, Object> clones) throws IllegalAccessException {
+    private Object fastClone(final Object o, final Map<Object, Object> clones) throws IllegalAccessException {
         final Class<? extends Object> c = o.getClass();
         final IFastCloner fastCloner = fastCloners.get(c);
         if (fastCloner != null) return fastCloner.clone(o, deepCloner, clones);
@@ -132,7 +139,7 @@ public class Cloner {
         ignoredInstances.put(o, true);
     }
 
-    public void registerConstant(final Class<?> c, final String privateFieldName) {
+    private void registerConstant(final Class<?> c, final String privateFieldName) {
         try {
             List<Field> fields = allFields(c);
             for (Field field : fields) {
@@ -144,11 +151,7 @@ public class Cloner {
                 }
             }
             throw new RuntimeException("No such field : " + privateFieldName);
-        } catch (final SecurityException e) {
-            throw new RuntimeException(e);
-        } catch (final IllegalArgumentException e) {
-            throw new RuntimeException(e);
-        } catch (final IllegalAccessException e) {
+        } catch (final SecurityException | IllegalArgumentException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }
     }
@@ -157,7 +160,7 @@ public class Cloner {
      * registers some known JDK immutable classes. Override this to register your
      * own list of jdk's immutable classes
      */
-    protected void registerKnownJdkImmutableClasses() {
+    private void registerKnownJdkImmutableClasses() {
         registerImmutable(String.class);
         registerImmutable(Integer.class);
         registerImmutable(Long.class);
@@ -178,7 +181,7 @@ public class Cloner {
         registerImmutable(Pattern.class);
     }
 
-    protected void registerKnownConstants() {
+    private void registerKnownConstants() {
         // registering known constants of the jdk.
         registerStaticFields(TreeSet.class, HashSet.class, HashMap.class, TreeMap.class);
     }
@@ -226,15 +229,11 @@ public class Cloner {
      *          be added to the clone.
      */
     public void dontClone(final Class<?>... c) {
-        for (final Class<?> cl : c) {
-            ignored.add(cl);
-        }
+        ignored.addAll(Arrays.asList(c));
     }
 
     public void dontCloneInstanceOf(final Class<?>... c) {
-        for (final Class<?> cl : c) {
-            ignoredInstanceOf.add(cl);
-        }
+        ignoredInstanceOf.addAll(Arrays.asList(c));
     }
 
     public void setDontCloneInstanceOf(final Class<?>... c) {
@@ -247,9 +246,7 @@ public class Cloner {
      * @param c the classes to nullify during cloning
      */
     public void nullInsteadOfClone(final Class<?>... c) {
-        for (final Class<?> cl : c) {
-            nullInstead.add(cl);
-        }
+        nullInstead.addAll(Arrays.asList(c));
     }
 
     // spring framework friendly version of nullInsteadOfClone
@@ -263,9 +260,7 @@ public class Cloner {
      * @param c the immutable class
      */
     public void registerImmutable(final Class<?>... c) {
-        for (final Class<?> cl : c) {
-            ignored.add(cl);
-        }
+        ignored.addAll(Arrays.asList(c));
     }
 
     // spring framework friendly version of registerImmutable
@@ -371,11 +366,11 @@ public class Cloner {
      * @param clz the class under check
      * @return true to mark clz as immutable and skip cloning it
      */
-    protected boolean considerImmutable(final Class<?> clz) {
+    private boolean considerImmutable(final Class<?> clz) {
         return false;
     }
 
-    protected Class<?> getImmutableAnnotation() {
+    private Class<?> getImmutableAnnotation() {
         return Immutable.class;
     }
 
@@ -542,9 +537,7 @@ public class Cloner {
                     if (destFields.contains(field)) {
                         field.set(dest, fieldObject);
                     }
-                } catch (final IllegalArgumentException e) {
-                    throw new RuntimeException(e);
-                } catch (final IllegalAccessException e) {
+                } catch (final IllegalArgumentException | IllegalAccessException e) {
                     throw new RuntimeException(e);
                 }
             }
@@ -566,7 +559,7 @@ public class Cloner {
     /**
      * reflection utils, override this to choose which fields to clone
      */
-    protected List<Field> allFields(final Class<?> c) {
+    private List<Field> allFields(final Class<?> c) {
         List<Field> l = fieldsCache.get(c);
         if (l == null) {
             l = new LinkedList<Field>();

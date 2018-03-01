@@ -1,4 +1,3 @@
-
 package ru.siksmfp.kacopy.instanter.types;
 
 import ru.siksmfp.kacopy.instanter.api.Instanter;

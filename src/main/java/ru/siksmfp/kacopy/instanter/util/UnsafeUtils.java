@@ -1,4 +1,3 @@
-
 package ru.siksmfp.kacopy.instanter.util;
 
 import ru.siksmfp.kacopy.exception.InstanterException;

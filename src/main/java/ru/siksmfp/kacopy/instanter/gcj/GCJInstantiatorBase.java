@@ -1,4 +1,3 @@
-
 package ru.siksmfp.kacopy.instanter.gcj;
 
 import ru.siksmfp.kacopy.exception.InstanterException;
@@ -31,11 +30,7 @@ public abstract class GCJInstantiatorBase<T> implements ObjectInstantiator<T> {
                 newObjectMethod = ObjectInputStream.class.getDeclaredMethod("newObject", new Class[]{Class.class, Class.class});
                 newObjectMethod.setAccessible(true);
                 dummyStream = new DummyStream();
-            } catch (RuntimeException e) {
-                throw new InstanterException(e);
-            } catch (NoSuchMethodException e) {
-                throw new InstanterException(e);
-            } catch (IOException e) {
+            } catch (RuntimeException | NoSuchMethodException | IOException e) {
                 throw new InstanterException(e);
             }
         }

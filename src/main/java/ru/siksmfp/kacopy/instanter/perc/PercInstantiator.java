@@ -1,9 +1,9 @@
 package ru.siksmfp.kacopy.instanter.perc;
 
 import ru.siksmfp.kacopy.exception.InstanterException;
-import ru.siksmfp.kacopy.instanter.api.ObjectInstantiator;
 import ru.siksmfp.kacopy.instanter.annotations.Instantiator;
 import ru.siksmfp.kacopy.instanter.annotations.Typology;
+import ru.siksmfp.kacopy.instanter.api.ObjectInstantiator;
 
 import java.io.ObjectInputStream;
 import java.lang.reflect.Method;

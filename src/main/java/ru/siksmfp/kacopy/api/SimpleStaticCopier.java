@@ -13,7 +13,7 @@ public class SimpleStaticCopier {
     private static final SimpleCloneMaker SIMPLE_CLON_MAKER = new SimpleCloneMaker();
     private static final Instanter INSTANTER = new InstanterStd();
 
-    public static  <T> T deepCopy(T object) throws CloningException {
+    public static <T> T deepCopy(T object) throws CloningException {
         try {
             return SIMPLE_CLON_MAKER.simpleDeepClone(object, INSTANTER);
         } catch (Exception ex) {

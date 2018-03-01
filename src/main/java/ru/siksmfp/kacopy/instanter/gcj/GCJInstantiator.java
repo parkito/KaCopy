@@ -12,7 +12,6 @@ import java.lang.reflect.InvocationTargetException;
  *
  * @author Artem Karnov @date 2/28/2018.
  * @email artem.karnov@t-systems.com
- * @see org.objenesis.instantiator.ObjectInstantiator
  */
 @Instantiator(Typology.STANDARD)
 public class GCJInstantiator<T> extends GCJInstantiatorBase<T> {
@@ -24,11 +23,7 @@ public class GCJInstantiator<T> extends GCJInstantiatorBase<T> {
     public T newInstance() {
         try {
             return type.cast(newObjectMethod.invoke(dummyStream, type, Object.class));
-        } catch (RuntimeException e) {
-            throw new InstanterException(e);
-        } catch (IllegalAccessException e) {
-            throw new InstanterException(e);
-        } catch (InvocationTargetException e) {
+        } catch (RuntimeException | IllegalAccessException | InvocationTargetException e) {
             throw new InstanterException(e);
         }
     }

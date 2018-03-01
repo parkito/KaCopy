@@ -1,7 +1,6 @@
 package ru.siksmfp.kacopy;
 
 import ru.siksmfp.kacopy.api.SimpleCopier;
-import ru.siksmfp.kacopy.cloning.impl.IClone;
 
 import java.util.Arrays;
 import java.util.List;
@@ -13,7 +12,6 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         List<Integer> list = Arrays.asList(1, 2, 3, 4);
-        IClone cloner = new IClone();
         SimpleCopier<List<Integer>> cp = new SimpleCopier<>();
         List<Integer> cloneList = cp.deepCopy(list);
         System.out.println(list == cloneList);
