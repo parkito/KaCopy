@@ -19,6 +19,9 @@
 
 ## Table of contents
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/3ae97363f92749bdb49886be719c5364)](https://app.codacy.com/app/parkito/KaCopy?utm_source=github.com&utm_medium=referral&utm_content=parkito/KaCopy&utm_campaign=badger)
+
+
   * [Theory](#theory) 
   * [Common usage](#common-usage)
   * [Installation](#installation)
