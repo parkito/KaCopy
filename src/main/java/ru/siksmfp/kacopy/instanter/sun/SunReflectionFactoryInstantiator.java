@@ -24,8 +24,7 @@ public class SunReflectionFactoryInstantiator<T> implements ObjectInstantiator<T
 
     public SunReflectionFactoryInstantiator(Class<T> type) {
         Constructor<Object> javaLangObjectConstructor = getJavaLangObjectConstructor();
-        mungedConstructor = SunReflectionFactoryHelper.newConstructorForSerialization(
-                type, javaLangObjectConstructor);
+        mungedConstructor = SunReflectionFactoryHelper.newConstructorForSerialization(type, javaLangObjectConstructor);
         mungedConstructor.setAccessible(true);
     }
 

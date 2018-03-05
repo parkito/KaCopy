@@ -8,9 +8,6 @@ package ru.siksmfp.kacopy.exception;
  * @email artem.karnov@t-systems.com
  */
 public class InstanterException extends RuntimeException {
-
-    private static final long serialVersionUID = -2677230016262426968L;
-
     /**
      * @param msg Error message
      */

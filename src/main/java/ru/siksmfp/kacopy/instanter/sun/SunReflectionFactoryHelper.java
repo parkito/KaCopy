@@ -8,7 +8,7 @@ import java.lang.reflect.Method;
 
 /**
  * Helper methods providing access to {@link sun.reflect.ReflectionFactory} via reflection, for use
- * by the {@link ObjectInstantiator}s that use it.
+ * by the {@link ru.siksmfp.kacopy.instanter.api.ObjectInstantiator}s that use it.
  *
  * @author Artem Karnov @date 2/28/2018.
  * @email artem.karnov@t-systems.com
@@ -26,13 +26,8 @@ class SunReflectionFactoryHelper {
                 reflectionFactoryClass);
 
         try {
-            return (Constructor<T>) newConstructorForSerializationMethod.invoke(
-                    reflectionFactory, type, constructor);
-        } catch (IllegalArgumentException e) {
-            throw new InstanterException(e);
-        } catch (IllegalAccessException e) {
-            throw new InstanterException(e);
-        } catch (InvocationTargetException e) {
+            return (Constructor<T>) newConstructorForSerializationMethod.invoke(reflectionFactory, type, constructor);
+        } catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
             throw new InstanterException(e);
         }
     }
@@ -47,24 +42,16 @@ class SunReflectionFactoryHelper {
 
     private static Object createReflectionFactory(Class<?> reflectionFactoryClass) {
         try {
-            Method method = reflectionFactoryClass.getDeclaredMethod(
-                    "getReflectionFactory");
+            Method method = reflectionFactoryClass.getDeclaredMethod("getReflectionFactory");
             return method.invoke(null);
-        } catch (NoSuchMethodException e) {
-            throw new InstanterException(e);
-        } catch (IllegalAccessException e) {
-            throw new InstanterException(e);
-        } catch (IllegalArgumentException e) {
-            throw new InstanterException(e);
-        } catch (InvocationTargetException e) {
+        } catch (NoSuchMethodException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
             throw new InstanterException(e);
         }
     }
 
     private static Method getNewConstructorForSerializationMethod(Class<?> reflectionFactoryClass) {
         try {
-            return reflectionFactoryClass.getDeclaredMethod(
-                    "newConstructorForSerialization", Class.class, Constructor.class);
+            return reflectionFactoryClass.getDeclaredMethod("newConstructorForSerialization", Class.class, Constructor.class);
         } catch (NoSuchMethodException e) {
             throw new InstanterException(e);
         }

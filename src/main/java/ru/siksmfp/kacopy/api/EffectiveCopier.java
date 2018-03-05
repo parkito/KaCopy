@@ -47,18 +47,16 @@ import java.util.regex.Pattern;
  * @email artem.karnov@t-systems.com
  */
 public class EffectiveCopier implements KaCopier {
-    private final Set<Class<?>> ignoredClasses = new HashSet<>();
-    private final Set<Class<?>> nullInstead = new HashSet<>();
-    private final Map<Class<?>, IFastCloner> fastCloners = new HashMap<>();
-    private final ConcurrentHashMap<Class<?>, List<Field>> fieldsCache = new ConcurrentHashMap<>();
-    private final List<ICloningStrategy> cloningStrategies = new LinkedList<>();
-    // caches immutables for quick reference
-    private final ConcurrentHashMap<Class<?>, Boolean> immutables = new ConcurrentHashMap<Class<?>, Boolean>();
+    private Set<Class<?>> ignoredClasses = new HashSet<>();
+    private Map<Class<?>, IFastCloner> fastCloners = new HashMap<>();
+    private ConcurrentHashMap<Class<?>, List<Field>> fieldsCache = new ConcurrentHashMap<>();
+    private List<ICloningStrategy> cloningStrategies = new LinkedList<>();
+    private ConcurrentHashMap<Class<?>, Boolean> immutablesClassesCash = new ConcurrentHashMap<Class<?>, Boolean>();
+    private Instanter instanter;
     private boolean cloneAnonymousParent = true;
     private boolean nullTransient = false;
     private boolean cloneSynthetics = true;
 
-    private Instanter instanter;
 
     private void init() {
         //register known Jdk immutable classes
@@ -97,7 +95,7 @@ public class EffectiveCopier implements KaCopier {
     private List<Field> allFields(final Class<?> c) {
         List<Field> l = fieldsCache.get(c);
         if (l == null) {
-            l = new LinkedList<Field>();
+            l = new LinkedList<>();
             final Field[] fields = c.getDeclaredFields();
             Collections.addAll(l, fields);
             Class<?> sc = c;
@@ -170,10 +168,6 @@ public class EffectiveCopier implements KaCopier {
         ignoredClasses.addAll(Arrays.asList(c));
     }
 
-    public void setExtraNullInsteadOfClone(final Set<Class<?>> set) {
-        nullInstead.addAll(set);
-    }
-
     public void setExtraImmutables(final Set<Class<?>> set) {
         ignoredClasses.addAll(set);
     }
@@ -188,54 +182,39 @@ public class EffectiveCopier implements KaCopier {
     }
 
     /**
-     * deep clones "o".
-     *
-     * @param <T> the type of "o"
-     * @param o   the object to be deep-cloned
-     * @return a deep-clone of "o".
+     * if false, anonymous classes parent class won't be cloned. Default is true
      */
-    public <T> T deepClone(final T o) {
-        if (o == null) return null;
+    public void setCloneAnonymousParent(final boolean cloneAnonymousParent) {
+        this.cloneAnonymousParent = cloneAnonymousParent;
+    }
+
+    public boolean isCloneAnonymousParent() {
+        return cloneAnonymousParent;
+    }
+
+    @Override
+    public <T> T deepCopy(T object) {
+        if (object == null) return null;
         final Map<Object, Object> clones = new IdentityHashMap<Object, Object>(16);
         try {
-            return cloneInternal(o, clones);
-        } catch (final IllegalAccessException e) {
-            throw new CloningException("error during cloning of " + o, e);
+            return cloneInternal(object, clones);
+        } catch (final IllegalAccessException ex) {
+            throw new CloningException("error during cloning of " + object, ex);
         }
     }
 
-    public <T> T notCloneInstances(final T o, final Object... dontCloneThese) {
-        if (o == null) return null;
-        final Map<Object, Object> clones = new IdentityHashMap<Object, Object>(16);
-        for (final Object dc : dontCloneThese) {
-            clones.put(dc, dc);
-        }
+    @Override
+    public <T> T shallowCopy(T object) {
+        if (object == null) return null;
         try {
-            return cloneInternal(o, clones);
-        } catch (final IllegalAccessException e) {
-            throw new CloningException("error during cloning of " + o, e);
+            return cloneInternal(object, null);
+        } catch (final IllegalAccessException ex) {
+            throw new CloningException("error during cloning of " + object, ex);
         }
     }
 
     /**
-     * shallow clones "o". This means that if c=shallowClone(o) then
-     * c!=o. Any change to c won't affect o.
-     *
-     * @param <T> the type of o
-     * @param o   the object to be shallow-cloned
-     * @return a shallow clone of "o"
-     */
-    public <T> T shallowClone(final T o) {
-        if (o == null) return null;
-        try {
-            return cloneInternal(o, null);
-        } catch (final IllegalAccessException e) {
-            throw new CloningException("error during cloning of " + o, e);
-        }
-    }
-
-    /**
-     * override this to decide if a class is immutable. Immutable classes are not cloned.
+     * Override this to decide if a class is immutable. Immutable classes are not cloned.
      *
      * @param clz the class under check
      * @return true to mark clz as immutable and skip cloning it
@@ -255,14 +234,14 @@ public class EffectiveCopier implements KaCopier {
      * @return true if the clz is considered immutable
      */
     private boolean isImmutable(final Class<?> clz) {
-        final Boolean isIm = immutables.get(clz);
+        final Boolean isIm = immutablesClassesCash.get(clz);
         if (isIm != null) return isIm;
         if (considerImmutable(clz)) return true;
 
         final Class<?> immutableAnnotation = getImmutableAnnotation();
         for (final Annotation annotation : clz.getDeclaredAnnotations()) {
             if (annotation.annotationType() == immutableAnnotation) {
-                immutables.put(clz, Boolean.TRUE);
+                immutablesClassesCash.put(clz, Boolean.TRUE);
                 return true;
             }
         }
@@ -272,25 +251,23 @@ public class EffectiveCopier implements KaCopier {
                 if (annotation.annotationType() == Immutable.class) {
                     final Immutable im = (Immutable) annotation;
                     if (im.subClass()) {
-                        immutables.put(clz, Boolean.TRUE);
+                        immutablesClassesCash.put(clz, Boolean.TRUE);
                         return true;
                     }
                 }
             }
             c = c.getSuperclass();
         }
-        immutables.put(clz, Boolean.FALSE);
+        immutablesClassesCash.put(clz, Boolean.FALSE);
         return false;
     }
 
     @SuppressWarnings("unchecked")
-    protected <T> T cloneInternal(final T o, final Map<Object, Object> clones) throws IllegalAccessException {
+    private <T> T cloneInternal(final T o, final Map<Object, Object> clones) throws IllegalAccessException {
         if (o == null) return null;
         if (o == this) return null; // We don't need to clone cloner
         if (o instanceof Enum) return o;
         final Class<T> clz = (Class<T>) o.getClass();
-        // skip cloning ignoredClasses classes
-        if (nullInstead.contains(clz)) return null;
         if (ignoredClasses.contains(clz)) return o;
         if (isImmutable(clz)) return o;
         if (o instanceof IFreezable) {
@@ -326,21 +303,12 @@ public class EffectiveCopier implements KaCopier {
                 if (!(nullTransient && Modifier.isTransient(modifiers))) {
                     final Object fieldObject = field.get(o);
                     final boolean shouldClone = (cloneSynthetics || !field.isSynthetic()) && (cloneAnonymousParent || !isAnonymousParent(field));
-                    final Object fieldObjectClone = clones != null ? (shouldClone ? applyCloningStrategy(clones, o, fieldObject, field) : fieldObject) : fieldObject;
+                    final Object fieldObjectClone = clones != null ? (shouldClone ? cloneInternal(fieldObject, clones) : fieldObject) : fieldObject;
                     field.set(newInstance, fieldObjectClone);
                 }
             }
         }
         return newInstance;
-    }
-
-    private Object applyCloningStrategy(Map<Object, Object> clones, Object o, Object fieldObject, Field field) throws IllegalAccessException {
-        for (ICloningStrategy strategy : cloningStrategies) {
-            ICloningStrategy.Strategy s = strategy.strategyFor(o, field);
-            if (s == ICloningStrategy.Strategy.NULL_INSTEAD_OF_CLONE) return null;
-            if (s == ICloningStrategy.Strategy.SAME_INSTANCE_INSTEAD_OF_CLONE) return fieldObject;
-        }
-        return cloneInternal(fieldObject, clones);
     }
 
     @SuppressWarnings("unchecked")
@@ -365,26 +333,5 @@ public class EffectiveCopier implements KaCopier {
 
     private boolean isAnonymousParent(final Field field) {
         return "this$0".equals(field.getName());
-    }
-
-    /**
-     * if false, anonymous classes parent class won't be cloned. Default is true
-     */
-    public void setCloneAnonymousParent(final boolean cloneAnonymousParent) {
-        this.cloneAnonymousParent = cloneAnonymousParent;
-    }
-
-    public boolean isCloneAnonymousParent() {
-        return cloneAnonymousParent;
-    }
-
-    @Override
-    public <T> T deepCopy(T object) {
-        return null;
-    }
-
-    @Override
-    public <T> T shallowCopy(T object) {
-        return null;
     }
 }
