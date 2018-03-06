@@ -6,130 +6,18 @@ apply plugin: 'signing'
 apply plugin: 'maven-publish'
 apply from: rootProject.projectDir.path + '/dependencies.gradle'
 
-// dependency management as you like
+jar {
+    archiveName = 'KaCopy_' + version + '.jar'
+    from {
+        (configurations.runtime).collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+}
+
 repositories {
     mavenCentral()
 }
-//// javadoc.jar generation
-//task javadocJar(type: Jar, dependsOn: javadoc) { // (1)
-//    classifier = 'javadoc'
-//    from javadoc.destinationDir
-//}
-//// sources.jar generation
-//task sourceJar(type: Jar) {
-//    classifier = 'sources'
-//    from sourceSets.main.allSource
-//}
-//// pom file name
-//ext {
-//    pomFilePath = "${project.projectDir}/tmp/pom.xml"
-//    pomFile = file(pomFilePath)
-//}
-//// add configuration for pom signing
-//configurations {
-//    pom
-//}
-//// summarize artifacts
-//artifacts {
-//    archives jar
-//    archives sourceJar
-//    archives javadocJar
-//    if (pomFile.exists()) {
-//        pom pomFile
-//    }
-//}
-//// sign all artifacts
-//task signJars(type: Sign, dependsOn: [jar, javadocJar, sourceJar]) {
-//    sign configurations.archives
-//}
-//// sign pom
-//task signPom(type: Sign) {
-//    sign configurations.pom
-//}
-//// defining which tasks should be called
-//if (project.ext.pomFile.exists()) {
-//    task preparePublication(dependsOn: [signJars, signPom])
-//} else {
-//    task preparePublication(dependsOn: signJars)
-//}
-//// extract signatures and add classifier and extension to them
-//def getSignatureFiles = {
-//    def allFiles = project.tasks.signJars.signatureFiles.collect { it }
-//    def signedSources = allFiles.find { it.name.contains('-sources') }
-//    def signedJavadoc = allFiles.find { it.name.contains('-javadoc') }
-//    def signedJar = (allFiles - [signedSources, signedJavadoc])[0]
-//    return [
-//            [archive: signedSources, classifier: 'sources', extension: 'jar.asc'],
-//            [archive: signedJavadoc, classifier: 'javadoc', extension: 'jar.asc'],
-//            [archive: signedJar, classifier: null, extension: 'jar.asc']
-//    ]
-//}
-//// extract pom signature
-//def getPomSignature = {
-//    return project.tasks.signPom.signatureFiles.collect { it }[0]
-//}
-//publishing {
-//    publicaitons {
-//        gpgJars(MavenPublication) {
-//            getSignatureFiles().each { signature ->
-//                artifact(signature.archive) {
-//                    classifier = signature.classifier
-//                    extension = signature.extension
-//                }
-//            }
-//        }
-//        if (project.ext.pomFile.exists()) {
-//            gpgPom(MavenPublication) {
-//                artifact(getPomSignature()) {
-//                    classifier = null
-//                    extension = 'pom.asc'
-//                }
-//            }
-//        }
-//        jar(MavenPublication) {
-//            from components.java
-//            pom.withXml {
-//                asNode().children().last() + {
-//                    resolveStrategy = Closure.DELEGATE_FIRST
-//                    name 'KaCopy'
-//                    description 'KaCopy is the compact high effective library for deep cloning java objects '
-//                    url projectUrl
-//                    scm {
-//                        url scmUrl
-//                        connection connectionUrl
-//                        developerConnection developerConnectionUrl
-//                    }
-//                    licenses {
-//                        license {
-//                            name 'The MIT License'
-//                            url 'https://opensource.org/licenses/MIT'
-//                            distribution 'repo'
-//                        }
-//                    }
-//                    developers {
-//                        developer {
-//                            id 'parkito'
-//                            name 'Artem Karnov'
-//                            email 'parkito@siksmfp.ru'
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
-//    repositories {
-//        if (project.ext.pomFile.exists()) {
-//            url 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
-//            credentials {
-//                username = sonatypeUsername
-//                password = sonatypePassword
-//            }
-//        } else {
-//            url fileDirectory
-//        }
-//    }
-//}
-
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
@@ -139,3 +27,85 @@ dependencies {
     testCompile "org.junit.jupiter:junit-jupiter-api:$jUnitApiVersion"
     testCompile "org.junit.jupiter:junit-jupiter-engine:$jUnitEngineVersion"
 }
+
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives jar, javadocJar, sourcesJar
+}
+
+signing {
+    sign configurations.archives
+}
+
+def getSonatypeProperty(String name) {
+    name = 'sonatype' + name.capitalize()
+    if (project.hasProperty(name)) {
+        return project.getProperties()[name]
+    } else {
+        return ''
+    }
+}
+/*
+*String pomName = <NAME>
+String pomRepositoryUrl = <URL (github, gitlab, etc)>
+String pomScmUrl = <SCM URL>
+String pomDescription = <DESCRIPTION>
+String pomLicenseName = <LICENSE NAME>
+String pomLicenseUrl = <URL TO THE LICENSE>
+String pomDeveloperId = <DEVELOPER ID>
+String pomDeveloperEmail = <EMAIL>
+String pomDeveloperName = <MY NAME>
+ */
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: getSonatypeProperty('username'), password: getSonatypeProperty('password'))
+            }
+
+            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                authentication(userName: getSonatypeProperty('username'), password: getSonatypeProperty('password'))
+            }
+
+            pom.project {
+                name pomName
+                description pomDescription
+                url pomRepositoryUrl
+                version version
+                groupId group
+                artifactId pomName
+                packaging 'jar'
+                scm {
+                    connection pomScmUrl
+                    developerConnection pomScmUrl
+                    url pomScmUrl
+                }
+                licenses {
+                    license {
+                        name pomLicenseName
+                        url pomLicenseUrl
+                        distribution 'repo'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id pomDeveloperId
+                        name pomDeveloperName
+                        email pomDeveloperEmail
+                    }
+                }
+            }
+        }
+    }
