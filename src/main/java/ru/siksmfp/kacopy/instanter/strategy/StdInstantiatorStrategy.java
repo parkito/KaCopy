@@ -41,7 +41,6 @@ public class StdInstantiatorStrategy extends BaseInstantiatorStrategy {
      * @return The ObjectInstantiator for the class
      */
     public <T> ObjectInstantiator<T> newInstantiatorOf(Class<T> type) {
-
         if (PlatformDescription.isThisJVM(PlatformDescription.HOTSPOT) || PlatformDescription.isThisJVM(PlatformDescription.OPENJDK)) {
             // Java 7 GAE was under a security manager so we use a degraded system
             if (PlatformDescription.isGoogleAppEngine() && PlatformDescription.SPECIFICATION_VERSION.equals("1.7")) {

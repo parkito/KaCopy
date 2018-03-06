@@ -269,7 +269,7 @@ public class EffectiveCopier implements KaCopier {
         if (o == null) return null;
         if (o == this) return null; // We don't need to clone cloner
         if (o instanceof Enum) return o;
-        final Class<T> clz = (Class<T>) o.getClass();
+        Class<T> clz = (Class<T>) o.getClass();
         if (ignoredClasses.contains(clz)) return o;
         if (isImmutable(clz)) return o;
         if (o instanceof IFreezable) {
@@ -294,12 +294,13 @@ public class EffectiveCopier implements KaCopier {
     }
 
     private <T> T cloneObject(T o, Map<Object, Object> clones, Class<T> clz) throws IllegalAccessException {
-        final T newInstance = instanter.newInstance(clz);
+        T newInstance = instanter.newInstance(clz);
         if (clones != null) {
             clones.put(o, newInstance);
         }
         final List<Field> fields = allFields(clz);
         for (final Field field : fields) {
+            field.setAccessible(true);
             final int modifiers = field.getModifiers();
             if (!Modifier.isStatic(modifiers)) {
                 if (!(nullTransient && Modifier.isTransient(modifiers))) {

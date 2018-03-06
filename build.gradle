@@ -2,24 +2,136 @@ group 'com.parkito.kacopy'
 version '0.0.1-SNAPSHOT'
 
 apply plugin: 'java'
+apply plugin: 'signing'
 apply plugin: 'maven-publish'
 apply from: rootProject.projectDir.path + '/dependencies.gradle'
 
-
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            from components.java
-        }
-    }
-}
-
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-
+// dependency management as you like
 repositories {
     mavenCentral()
 }
+//// javadoc.jar generation
+//task javadocJar(type: Jar, dependsOn: javadoc) { // (1)
+//    classifier = 'javadoc'
+//    from javadoc.destinationDir
+//}
+//// sources.jar generation
+//task sourceJar(type: Jar) {
+//    classifier = 'sources'
+//    from sourceSets.main.allSource
+//}
+//// pom file name
+//ext {
+//    pomFilePath = "${project.projectDir}/tmp/pom.xml"
+//    pomFile = file(pomFilePath)
+//}
+//// add configuration for pom signing
+//configurations {
+//    pom
+//}
+//// summarize artifacts
+//artifacts {
+//    archives jar
+//    archives sourceJar
+//    archives javadocJar
+//    if (pomFile.exists()) {
+//        pom pomFile
+//    }
+//}
+//// sign all artifacts
+//task signJars(type: Sign, dependsOn: [jar, javadocJar, sourceJar]) {
+//    sign configurations.archives
+//}
+//// sign pom
+//task signPom(type: Sign) {
+//    sign configurations.pom
+//}
+//// defining which tasks should be called
+//if (project.ext.pomFile.exists()) {
+//    task preparePublication(dependsOn: [signJars, signPom])
+//} else {
+//    task preparePublication(dependsOn: signJars)
+//}
+//// extract signatures and add classifier and extension to them
+//def getSignatureFiles = {
+//    def allFiles = project.tasks.signJars.signatureFiles.collect { it }
+//    def signedSources = allFiles.find { it.name.contains('-sources') }
+//    def signedJavadoc = allFiles.find { it.name.contains('-javadoc') }
+//    def signedJar = (allFiles - [signedSources, signedJavadoc])[0]
+//    return [
+//            [archive: signedSources, classifier: 'sources', extension: 'jar.asc'],
+//            [archive: signedJavadoc, classifier: 'javadoc', extension: 'jar.asc'],
+//            [archive: signedJar, classifier: null, extension: 'jar.asc']
+//    ]
+//}
+//// extract pom signature
+//def getPomSignature = {
+//    return project.tasks.signPom.signatureFiles.collect { it }[0]
+//}
+//publishing {
+//    publicaitons {
+//        gpgJars(MavenPublication) {
+//            getSignatureFiles().each { signature ->
+//                artifact(signature.archive) {
+//                    classifier = signature.classifier
+//                    extension = signature.extension
+//                }
+//            }
+//        }
+//        if (project.ext.pomFile.exists()) {
+//            gpgPom(MavenPublication) {
+//                artifact(getPomSignature()) {
+//                    classifier = null
+//                    extension = 'pom.asc'
+//                }
+//            }
+//        }
+//        jar(MavenPublication) {
+//            from components.java
+//            pom.withXml {
+//                asNode().children().last() + {
+//                    resolveStrategy = Closure.DELEGATE_FIRST
+//                    name 'KaCopy'
+//                    description 'KaCopy is the compact high effective library for deep cloning java objects '
+//                    url projectUrl
+//                    scm {
+//                        url scmUrl
+//                        connection connectionUrl
+//                        developerConnection developerConnectionUrl
+//                    }
+//                    licenses {
+//                        license {
+//                            name 'The MIT License'
+//                            url 'https://opensource.org/licenses/MIT'
+//                            distribution 'repo'
+//                        }
+//                    }
+//                    developers {
+//                        developer {
+//                            id 'parkito'
+//                            name 'Artem Karnov'
+//                            email 'parkito@siksmfp.ru'
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
+//    repositories {
+//        if (project.ext.pomFile.exists()) {
+//            url 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
+//            credentials {
+//                username = sonatypeUsername
+//                password = sonatypePassword
+//            }
+//        } else {
+//            url fileDirectory
+//        }
+//    }
+//}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 dependencies {
     compile "org.slf4j:slf4j-api:$self4jVersion"
