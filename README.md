@@ -1,21 +1,20 @@
-<h1 align="center">
+<h3 align="center">
   <br>
    <img src="https://s8.hostingkartinok.com/uploads/images/2018/03/68b491a97174353014a1f92aaecba400.png" alt="Logo ArrayMixer" title="KaCopy logo" />
   <br>
-</h1>
+ <strong>KaCopy</strong> is the compact high effective library for deep cloning java objects 
+</h3>
 <p align="center">  
 <a href="https://www.codacy.com/app/parkito/KaCopy?utm_source=github.com&utm_medium=referral&utm_content=parkito/KaCopy&utm_campaign=badger"><img src="https://api.codacy.com/project/badge/Grade/f57835866b44434eb3676675f86c7b76"></a>
 <a href="https://www.codacy.com/app/parkito/KaCopy?utm_source=github.com&utm_medium=referral&utm_content=parkito/KaCopy&utm_campaign=Badge_Coverage"><img src="https://api.codacy.com/project/badge/Coverage/8a941e0f57c047c8a481f4854666b42d"></a>
 <a href="https://travis-ci.org/parkito/KaCopy"><img src="https://travis-ci.org/teles/array-mixer.svg?branch=master"></a>
  <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/license-MIT-blue.svg"></a>
 </p>
-
-<p align="center">
-  <strong>KaCopy</strong> is the library for deep copying java objects uses reflections
-  for high effectiveness. </p>
   
-  It uses concepts of [Deep cloning library](https://github.com/kostaskougios/cloning) and 
-  [Objenesis library](https://github.com/easymock/objenesis)
+  KaCopy uses: 
+  * concepts of [Deep cloning library](https://github.com/kostaskougios/cloning) and 
+  [Objenesis library](https://github.com/easymock/objenesis) for user friendly usage 
+  * platform specific reflection API for  high effectiveness. 
 
 ## Table of contents
 
@@ -36,7 +35,7 @@
 
 ## Theory
 Cloning means creating a new object from an already presented object and
-copying all data of given object to that new object.
+copying all data of object to that new object.
 
 Deep copy is creating a new object and then copying the non-static
 fields of the current object to the new object. If a field
@@ -44,7 +43,6 @@ is a value type, a bit by bit copy of the field is performed.
 If a field is a reference type, a new copy of the referred
 object is performed. A deep copy of an object is a new object with
 entirely new instance variables, it does not share objects with the old.
-
 
 ## Common usage
 

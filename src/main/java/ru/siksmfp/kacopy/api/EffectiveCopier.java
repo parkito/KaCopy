@@ -120,7 +120,9 @@ public class EffectiveCopier implements KaCopier {
     private Object fastClone(final Object o, final Map<Object, Object> clones) throws IllegalAccessException {
         final Class<? extends Object> c = o.getClass();
         final IFastCloner fastCloner = fastCloners.get(c);
-        if (fastCloner != null) return fastCloner.clone(o, deepCloner, clones);
+        if (fastCloner != null) {
+            return fastCloner.clone(o, deepCloner, clones);
+        }
         return null;
     }
 

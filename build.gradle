@@ -2,7 +2,17 @@ group 'com.parkito.kacopy'
 version '0.0.1-SNAPSHOT'
 
 apply plugin: 'java'
+apply plugin: 'maven-publish'
 apply from: rootProject.projectDir.path + '/dependencies.gradle'
+
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+}
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
