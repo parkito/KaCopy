@@ -3,8 +3,12 @@ package ru.siksmfp.kacopy.dummies;
 import java.util.Collection;
 import java.util.Map;
 
+/**
+ * @author Artem Karnov @date 3/14/2018.
+ * @email artem.karnov@t-systems.com
+ */
 public class MutableDummy {
-    private static final String STATIC_FIELD = "Static field";
+    public static final String STATIC_FIELD = "Static field";
     private Map<Integer, String> map;
     private Collection collection;
     private int intValue;

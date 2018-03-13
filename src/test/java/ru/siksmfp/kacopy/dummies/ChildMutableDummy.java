@@ -4,6 +4,10 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author Artem Karnov @date 3/14/2018.
+ * @email artem.karnov@t-systems.com
+ */
 public class ChildMutableDummy extends MutableDummy {
     private List<String> list;
 
