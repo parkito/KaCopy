@@ -24,11 +24,46 @@ class EffectiveCopierTest {
     }
 
     @Test
-    public void simpleClone() {
+    public void listClone() {
         List<Integer> integerList = Arrays.asList(1, 2, 3, 4, 5);
         List<Integer> integerListClone = effectiveCopier.deepCopy(integerList);
 
         Assertions.assertEquals(integerListClone, integerList);
+    }
+
+    @Test
+    public void mapClone() {
 
     }
+
+    @Test
+    public void primitiveClone() {
+
+    }
+
+    @Test
+    public void objectClone(){
+
+    }
+
+    @Test
+    public void primitiveArrayClone() {
+
+    }
+
+    @Test
+    public void primitiveObjectClone() {
+
+    }
+
+    @Test
+    public void immutableClone() {
+
+    }
+
+    @Test
+    public void immutableInheritanceClone() {
+
+    }
+
 }
