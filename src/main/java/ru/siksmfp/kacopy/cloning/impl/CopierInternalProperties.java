@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
  * @author Artem Karnov @date 3/15/2018.
  * @email artem.karnov@t-systems.com
  */
-public class CopierProperties {
+public class CopierInternalProperties {
     private Instanter instanter;
 
     private Set<Class<?>> ignoredClasses = new HashSet<>();
@@ -29,7 +29,7 @@ public class CopierProperties {
     private boolean isNullTransient;
     private boolean isCloneSynthetics;
 
-    public CopierProperties() {
+    public CopierInternalProperties() {
         instanter = new InstanterStd();
 
         ignoredClasses = new HashSet<>();

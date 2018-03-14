@@ -18,10 +18,12 @@ import java.util.*;
  * @email artem.karnov@t-systems.com
  */
 public class KaCopier {
-    private CopierProperties properties;
+    private CopierInternalProperties properties;
+    public CopierSettings settings;
 
     public KaCopier() {
-        properties = new CopierProperties();
+        properties = new CopierInternalProperties();
+        settings = new CopierSettings();
     }
 
     public boolean isNullTransient() {
@@ -61,11 +63,11 @@ public class KaCopier {
 
     public void registerFastCloner(final Class<?> c, final IFastCloner fastCloner) {
         if (properties.getFastCloners().containsKey(c)) throw new IllegalArgumentException(c + " already fast-cloned!");
-        fastCloners.put(c, fastCloner);
+        properties.getFastCloners().put(c, fastCloner);
     }
 
     public void unregisterFastCloner(final Class<?> c) {
-        fastCloners.remove(c);
+        properties.getFastCloners().remove(c);
     }
 
     /**
@@ -75,17 +77,13 @@ public class KaCopier {
         properties.shouldCloneAnonymousParent(cloneAnonymousParent);
     }
 
-    public boolean isCloneAnonymousParent() {
-        return cloneAnonymousParent;
-    }
-
     public <T> T deepCopy(T object) {
         if (object == null) return null;
         final Map<Object, Object> clones = new IdentityHashMap<Object, Object>(16);
         try {
             return cloneInternal(object, clones);
         } catch (final IllegalAccessException ex) {
-            throw new CloningException("error during cloning of " + object, ex);
+            throw new CloningException("Error during cloning of " + object, ex);
         }
     }
 
@@ -94,22 +92,8 @@ public class KaCopier {
         try {
             return cloneInternal(object, null);
         } catch (final IllegalAccessException ex) {
-            throw new CloningException("error during cloning of " + object, ex);
+            throw new CloningException("Error during cloning of " + object, ex);
         }
-    }
-
-    /**
-     * Override this to decide if a class is immutable. Immutable classes are not cloned.
-     *
-     * @param clz the class under check
-     * @return true to mark clz as immutable and skip cloning it
-     */
-    private boolean considerImmutable(final Class<?> clz) {
-        return false;
-    }
-
-    private Class<?> getImmutableAnnotation() {
-        return Immutable.class;
     }
 
     /**
@@ -119,14 +103,13 @@ public class KaCopier {
      * @return true if the clz is considered immutable
      */
     private boolean isImmutable(final Class<?> clz) {
-        final Boolean isIm = immutablesClassesCash.get(clz);
+        final Boolean isIm = properties.getImmutableClassesCash().get(clz);
         if (isIm != null) return isIm;
-        if (considerImmutable(clz)) return true;
 
-        final Class<?> immutableAnnotation = getImmutableAnnotation();
+        final Class<?> immutableAnnotation = Immutable.class;
         for (final Annotation annotation : clz.getDeclaredAnnotations()) {
             if (annotation.annotationType() == immutableAnnotation) {
-                immutablesClassesCash.put(clz, Boolean.TRUE);
+                properties.getImmutableClassesCash().put(clz, Boolean.TRUE);
                 return true;
             }
         }
@@ -136,14 +119,14 @@ public class KaCopier {
                 if (annotation.annotationType() == Immutable.class) {
                     final Immutable im = (Immutable) annotation;
                     if (im.subClass()) {
-                        immutablesClassesCash.put(clz, Boolean.TRUE);
+                        properties.getImmutableClassesCash().put(clz, Boolean.TRUE);
                         return true;
                     }
                 }
             }
             c = c.getSuperclass();
         }
-        immutablesClassesCash.put(clz, Boolean.FALSE);
+        properties.getImmutableClassesCash().put(clz, Boolean.FALSE);
         return false;
     }
 
@@ -153,7 +136,7 @@ public class KaCopier {
         if (o == this) return null; // We don't need to clone cloner
         if (o instanceof Enum) return o;
         Class<T> clz = (Class<T>) o.getClass();
-        if (ignoredClasses.contains(clz)) return o;
+        if (properties.getIgnoredClasses().contains(clz)) return o;
         if (isImmutable(clz)) return o;
         if (o instanceof IFreezable) {
             final IFreezable f = (IFreezable) o;
@@ -177,7 +160,7 @@ public class KaCopier {
     }
 
     private <T> T cloneObject(T o, Map<Object, Object> clones, Class<T> clz) throws IllegalAccessException {
-        T newInstance = instanter.newInstance(clz);
+        T newInstance = properties.getInstanter().newInstance(clz);
         if (clones != null) {
             clones.put(o, newInstance);
         }
@@ -186,9 +169,9 @@ public class KaCopier {
             field.setAccessible(true);
             final int modifiers = field.getModifiers();
             if (!Modifier.isStatic(modifiers)) {
-                if (!(nullTransient && Modifier.isTransient(modifiers))) {
+                if (!(properties.isNullTransient() && Modifier.isTransient(modifiers))) {
                     final Object fieldObject = field.get(o);
-                    final boolean shouldClone = (cloneSynthetics || !field.isSynthetic()) && (cloneAnonymousParent || !isAnonymousParent(field));
+                    final boolean shouldClone = (properties.isCloneSynthetics() || !field.isSynthetic()) && (properties.isCloneAnonymousParent() || !isAnonymousParent(field));
                     final Object fieldObjectClone = clones != null ? (shouldClone ? cloneInternal(fieldObject, clones) : fieldObject) : fieldObject;
                     field.set(newInstance, fieldObjectClone);
                 }
@@ -217,7 +200,7 @@ public class KaCopier {
         return newInstance;
     }
 
-    private boolean isAnonymousParent(final Field field) {
+    private boolean isAnonymousParent(Field field) {
         return "this$0".equals(field.getName());
     }
 
@@ -246,7 +229,7 @@ public class KaCopier {
         }
     };
 
-    private Object fastClone(final Object o, final Map<Object, Object> clones) throws IllegalAccessException {
+    private Object fastClone(Object o, Map<Object, Object> clones) throws IllegalAccessException {
         final Class<? extends Object> c = o.getClass();
         final IFastCloner fastCloner = properties.getFastCloners().get(c);
         if (fastCloner != null) {
