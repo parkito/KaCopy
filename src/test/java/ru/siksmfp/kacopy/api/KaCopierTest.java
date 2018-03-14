@@ -1,10 +1,8 @@
 package ru.siksmfp.kacopy.api;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
 import ru.siksmfp.kacopy.cloning.cloner.SimpleCloneMaker;
 import ru.siksmfp.kacopy.dummies.ImmutableDummy;
 import ru.siksmfp.kacopy.dummies.MutableDummy;
@@ -15,9 +13,9 @@ import java.util.*;
  * @author Artem Karnov @date 3/6/2018.
  * @email artem.karnov@t-systems.com
  */
-class EffectiveCopierTest {
+class KaCopierTest {
 
-    private EffectiveCopier effectiveCopier;
+    private KaCopier kaCopier;
 
     private Map<Integer, String> map;
     private Collection collection;
@@ -33,7 +31,7 @@ class EffectiveCopierTest {
 
     @BeforeEach
     public void setUp() {
-        effectiveCopier = new EffectiveCopier();
+        kaCopier = new KaCopier();
 
         map = new HashMap<>();
         map.put(intVal1, stringVal1);
@@ -55,7 +53,7 @@ class EffectiveCopierTest {
     @Test
     public void listClone() {
         List<Integer> integerList = Arrays.asList(1, 2, 3, 4, 5);
-        List<Integer> integerListClone = effectiveCopier.deepCopy(integerList);
+        List<Integer> integerListClone = kaCopier.deepCopy(integerList);
 
         Assertions.assertEquals(integerListClone, integerList);
     }
@@ -67,7 +65,7 @@ class EffectiveCopierTest {
         map.put(intVal2, stringVal2);
         map.put(intVal3, stringVal3);
 
-        Map<Integer, String> mapClone = effectiveCopier.deepCopy(map);
+        Map<Integer, String> mapClone = kaCopier.deepCopy(map);
 
         Assertions.assertFalse(map == mapClone);
         Assertions.assertEquals(mapClone.get(intVal1), map.get(intVal1));
@@ -79,7 +77,7 @@ class EffectiveCopierTest {
     @Test
     public void primitiveClone() {
         double value = 4.0;
-        double valueClone = effectiveCopier.deepCopy(value);
+        double valueClone = kaCopier.deepCopy(value);
 
         Assertions.assertEquals(value, valueClone, 0.001);
     }
@@ -88,7 +86,7 @@ class EffectiveCopierTest {
     public void mutableObjectClone() {
         MutableDummy dummy = new MutableDummy(map, collection, intVal1, stringVal1);
 
-        MutableDummy dummyClone = effectiveCopier.deepCopy(dummy);
+        MutableDummy dummyClone = kaCopier.deepCopy(dummy);
 
         dummy.setMap(null);
 
@@ -107,7 +105,7 @@ class EffectiveCopierTest {
         arr[3] = 40;
         arr[4] = 50;
 
-        int[] arrClone = effectiveCopier.deepCopy(arr);
+        int[] arrClone = kaCopier.deepCopy(arr);
 
         Assertions.assertFalse(arr == arrClone);
         for (int i = 0; i < arr.length; i++) {
@@ -141,7 +139,7 @@ class EffectiveCopierTest {
             }
         }
 
-        int[][] arrClone = effectiveCopier.deepCopy(arr);
+        int[][] arrClone = kaCopier.deepCopy(arr);
 
         Assertions.assertFalse(arr == arrClone);
         for (int i = 0; i < maxSize; i++) {
@@ -156,6 +154,7 @@ class EffectiveCopierTest {
         ImmutableDummy immutableDummy = new ImmutableDummy(map, collection, intVal1, stringVal1);
         SimpleCloneMaker simpleCopier = new SimpleCloneMaker();
         ImmutableDummy immutableDummyClone = simpleCopier.copy(ImmutableDummy.class, immutableDummy);
+
         map.put(1, "4");
 
         Assertions.assertNotEquals(immutableDummyClone.getMap(), immutableDummy.getMap());
