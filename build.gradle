@@ -4,6 +4,7 @@ version '0.0.1-SNAPSHOT'
 apply plugin: 'java'
 apply plugin: 'signing'
 apply plugin: 'maven-publish'
+apply plugin: 'maven'
 apply from: rootProject.projectDir.path + '/dependencies.gradle'
 
 jar {
@@ -26,12 +27,13 @@ dependencies {
     //test
     testCompile "org.junit.jupiter:junit-jupiter-api:$jUnitApiVersion"
     testCompile "org.junit.jupiter:junit-jupiter-engine:$jUnitEngineVersion"
+    testCompile "org.junit.jupiter:junit-jupiter-params:$jUnitEngineVersion"
 }
 
-task javadocJar(type: Jar) {
-    classifier = 'javadoc'
-    from javadoc
-}
+//task javadocJar(type: Jar) {
+//    classifier = 'javadoc'
+//    from javadoc
+//}
 
 task sourcesJar(type: Jar) {
     classifier = 'sources'
@@ -39,7 +41,7 @@ task sourcesJar(type: Jar) {
 }
 
 artifacts {
-    archives jar, javadocJar, sourcesJar
+    archives jar, /*javadocJar*/ sourcesJar
 }
 
 signing {
@@ -54,17 +56,17 @@ def getSonatypeProperty(String name) {
         return ''
     }
 }
-/*
-*String pomName = <NAME>
-String pomRepositoryUrl = <URL (github, gitlab, etc)>
-String pomScmUrl = <SCM URL>
-String pomDescription = <DESCRIPTION>
-String pomLicenseName = <LICENSE NAME>
-String pomLicenseUrl = <URL TO THE LICENSE>
-String pomDeveloperId = <DEVELOPER ID>
-String pomDeveloperEmail = <EMAIL>
-String pomDeveloperName = <MY NAME>
- */
+
+String pomName = 'KaCopy'
+String pomRepositoryUrl = 'https://github.com/parkito/KaCopy'
+String pomScmUrl = 'https://github.com/parkito/KaCopy'
+String pomDescription = 'KaCopy'
+String pomLicenseName = 'MIT'
+String pomLicenseUrl = 'https://github.com/parkito/KaCopy/blob/master/LICENSE'
+String pomDeveloperId = 'parkito'
+String pomDeveloperEmail = 'parkito@siksmfp.ru'
+String pomDeveloperName = 'Artyom Karnov'
+
 uploadArchives {
     repositories {
         mavenDeployer {
