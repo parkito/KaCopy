@@ -1,10 +1,6 @@
 package ru.siksmfp.kacopy.api;
 
-import ru.siksmfp.kacopy.cloning.api.IDeepCloner;
-import ru.siksmfp.kacopy.cloning.api.IFastCloner;
-import ru.siksmfp.kacopy.cloning.api.IFreezable;
-import ru.siksmfp.kacopy.cloning.api.Immutable;
-import ru.siksmfp.kacopy.cloning.impl.*;
+import ru.siksmfp.kacopy.cloners.CopierInternalProperties;
 import ru.siksmfp.kacopy.exception.CloningException;
 
 import java.lang.annotation.Annotation;
@@ -97,10 +93,6 @@ public class KaCopier {
         Class<T> clz = (Class<T>) o.getClass();
         if (properties.getIgnoredClasses().contains(clz)) return o;
         if (isImmutable(clz)) return o;
-        if (o instanceof IFreezable) {
-            IFreezable f = (IFreezable) o;
-            if (f.isFrozen()) return o;
-        }
         Object clonedPreviously = clones != null ? clones.get(o) : null;
         if (clonedPreviously != null) return (T) clonedPreviously;
 
@@ -177,7 +169,6 @@ public class KaCopier {
         }
         return fieldsForClass;
     }
-
 
     private Object fastClone(Object o, Map<Object, Object> clones) throws IllegalAccessException {
         Class<? extends Object> c = o.getClass();

@@ -1,4 +1,4 @@
-package ru.siksmfp.kacopy.cloning.api;
+package ru.siksmfp.kacopy.api;
 
 import java.util.Map;
 

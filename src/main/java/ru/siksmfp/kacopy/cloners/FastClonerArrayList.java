@@ -1,7 +1,7 @@
-package ru.siksmfp.kacopy.cloning.impl;
+package ru.siksmfp.kacopy.cloners;
 
-import ru.siksmfp.kacopy.cloning.api.IDeepCloner;
-import ru.siksmfp.kacopy.cloning.api.IFastCloner;
+import ru.siksmfp.kacopy.api.IDeepCloner;
+import ru.siksmfp.kacopy.api.IFastCloner;
 
 import java.util.ArrayList;
 import java.util.Map;

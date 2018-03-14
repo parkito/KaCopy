@@ -1,6 +1,6 @@
-package ru.siksmfp.kacopy.cloning.impl;
+package ru.siksmfp.kacopy.cloners;
 
-import ru.siksmfp.kacopy.cloning.api.IFastCloner;
+import ru.siksmfp.kacopy.api.IFastCloner;
 import ru.siksmfp.kacopy.instanter.api.Instanter;
 import ru.siksmfp.kacopy.instanter.types.InstanterStd;
 

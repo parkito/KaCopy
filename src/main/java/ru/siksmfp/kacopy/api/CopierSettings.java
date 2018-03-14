@@ -1,7 +1,6 @@
 package ru.siksmfp.kacopy.api;
 
-import ru.siksmfp.kacopy.cloning.api.IFastCloner;
-import ru.siksmfp.kacopy.cloning.impl.CopierInternalProperties;
+import ru.siksmfp.kacopy.cloners.CopierInternalProperties;
 
 import java.util.*;
 
