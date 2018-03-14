@@ -5,6 +5,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import ru.siksmfp.kacopy.cloning.cloner.SimpleCloneMaker;
+import ru.siksmfp.kacopy.dummies.ImmutableDummy;
 import ru.siksmfp.kacopy.dummies.MutableDummy;
 
 import java.util.*;
@@ -147,6 +149,27 @@ class EffectiveCopierTest {
                 Assertions.assertEquals(arrClone[i][j], arr[i][j]);
             }
         }
+    }
+
+    @Test
+    public void test() throws IllegalAccessException, InstantiationException {
+        ImmutableDummy immutableDummy = new ImmutableDummy(map, collection, intVal1, stringVal1);
+        SimpleCloneMaker simpleCopier = new SimpleCloneMaker();
+        ImmutableDummy immutableDummyClone = simpleCopier.copy(ImmutableDummy.class, immutableDummy);
+        map.put(1, "4");
+
+        Assertions.assertNotEquals(immutableDummyClone.getMap(), immutableDummy.getMap());
+    }
+
+
+    @Test
+    public void test1() throws IllegalAccessException, InstantiationException, NoSuchFieldException {
+        SimpleCloneMaker simpleCopier = new SimpleCloneMaker();
+        Integer a = 5;
+
+        Integer copy = simpleCopier.copy(Integer.class, a);
+        System.out.println(copy);
+
     }
 
 }
