@@ -103,8 +103,8 @@ public class CopierInternalProperties {
         return immutableClassesCash;
     }
 
-    public void setImmutableClassesCash(ConcurrentHashMap<Class<?>, Boolean> immutableClassesCash) {
-        this.immutableClassesCash = immutableClassesCash;
+    public void addImmutableClasseToCash(Class<?> clazz, boolean isImmutable) {
+        immutableClassesCash.put(clazz, isImmutable);
     }
 
     public boolean isCloneAnonymousParent() {
