@@ -2,7 +2,11 @@ package ru.siksmfp.kacopy.api;
 
 import ru.siksmfp.kacopy.cloners.CopierInternalProperties;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @author Artem Karnov @date 3/15/2018.
@@ -20,7 +24,7 @@ public class CopierSettings {
     }
 
     /**
-     * This makes the cloner to set a transient field to null upon cloning.
+     * Makes the cloner to set a transient field to null upon cloning.
      * <p>
      * NOTE: primitive types can't be nulled. Their value will be set to default, i.e. 0 for int
      *
@@ -30,12 +34,12 @@ public class CopierSettings {
         properties.setNullTransient(nullTransient);
     }
 
-    public boolean isNullTransient(){
+    public boolean isNullTransient() {
         return properties.isNullTransient();
     }
 
     /**
-     * This makes the cloner to clone synthetics fields
+     * Makes the cloner to clone synthetics fields
      */
     public void setCloneSynthetics(boolean cloneSynthetics) {
         properties.setCloneSynthetics(cloneSynthetics);

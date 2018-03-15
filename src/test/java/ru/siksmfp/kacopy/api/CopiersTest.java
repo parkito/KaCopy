@@ -2,9 +2,7 @@ package ru.siksmfp.kacopy.api;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.api.Test;
 import ru.siksmfp.kacopy.dummies.ChildImmutableDummy;
 import ru.siksmfp.kacopy.dummies.ImmutableDummy;
 import ru.siksmfp.kacopy.dummies.MutableDummy;
@@ -15,7 +13,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
 
 /**
  * @author Artem Karnov @date 3/6/2018.
@@ -23,9 +20,7 @@ import java.util.stream.Stream;
  */
 class CopiersTest {
 
-    static Stream<Arguments> copiers() {
-        return Stream.of(Arguments.of(new EffectiveCopier()), Arguments.of(new SimpleCopier()));
-    }
+    private KaCopier kaCopier;
 
     private Map<Integer, String> map;
     private Collection collection;
@@ -41,6 +36,8 @@ class CopiersTest {
 
     @BeforeEach
     void setUp() {
+        kaCopier = new KaCopier();
+
         map = new HashMap<>();
         map.put(intVal1, stringVal1);
         map.put(intVal2, stringVal2);
@@ -55,21 +52,18 @@ class CopiersTest {
         list.add(stringVal1);
         list.add(stringVal2);
         list.add(stringVal3);
-
     }
 
-    @ParameterizedTest
-    @MethodSource("copiers")
-    void listClone(KaCopier kaCopier) {
+    @Test
+    void listClone() {
         List<Integer> integerList = Arrays.asList(1, 2, 3, 4, 5);
         List<Integer> integerListClone = kaCopier.deepCopy(integerList);
 
         Assertions.assertEquals(integerListClone, integerList);
     }
 
-    @ParameterizedTest
-    @MethodSource("copiers")
-    void mapClone(KaCopier kaCopier) {
+    @Test
+    void mapClone() {
         Map<Integer, String> map = new HashMap<>();
         map.put(intVal1, stringVal1);
         map.put(intVal2, stringVal2);
@@ -83,18 +77,16 @@ class CopiersTest {
         Assertions.assertEquals(mapClone.get(intVal3), map.get(intVal3));
     }
 
-    @ParameterizedTest
-    @MethodSource("copiers")
-    void primitiveClone(KaCopier kaCopier) {
+    @Test
+    void primitiveClone() {
         double value = 4.0;
         double valueClone = kaCopier.deepCopy(value);
 
         Assertions.assertEquals(value, valueClone, 0.001);
     }
 
-    @ParameterizedTest
-    @MethodSource("copiers")
-    void mutableObjectClone(KaCopier kaCopier) {
+    @Test
+    void mutableObjectClone() {
         MutableDummy dummy = new MutableDummy(map, collection, intVal1, stringVal1);
 
         MutableDummy dummyClone = kaCopier.deepCopy(dummy);
@@ -107,9 +99,8 @@ class CopiersTest {
         Assertions.assertNotEquals(dummyClone.getMap(), dummy.getMap());
     }
 
-    @ParameterizedTest
-    @MethodSource("copiers")
-    void primitiveArrayClone(KaCopier kaCopier) {
+    @Test
+    void primitiveArrayClone() {
         int[] arr = new int[5];
         arr[0] = 10;
         arr[1] = 20;
@@ -125,9 +116,8 @@ class CopiersTest {
         }
     }
 
-    @ParameterizedTest
-    @MethodSource("copiers")
-    void immutableClone(KaCopier kaCopier) {
+    @Test
+    void immutableClone() {
         ImmutableDummy immutableDummy = new ImmutableDummy(map, collection, intVal1, stringVal1);
 
         ImmutableDummy immutableDummyClone = kaCopier.deepCopy(immutableDummy);
@@ -141,9 +131,9 @@ class CopiersTest {
         Assertions.assertNotEquals(immutableDummyClone.getMap(), immutableDummy.getMap());
     }
 
-    @ParameterizedTest
-    @MethodSource("copiers")
-    void immutableInheritanceClone(KaCopier kaCopier) {
+
+    @Test
+    void immutableInheritanceClone() {
         ChildImmutableDummy immutableDummyChild = new ChildImmutableDummy(map, collection, intVal1, stringVal1, list);
 
         ChildImmutableDummy immutableDummyChildClone = kaCopier.deepCopy(immutableDummyChild);
@@ -155,7 +145,7 @@ class CopiersTest {
         Assertions.assertEquals(immutableDummyChildClone.getStringValue(), immutableDummyChild.getStringValue());
         Assertions.assertEquals(immutableDummyChildClone.getList(), immutableDummyChild.getList());
 
-        ImmutableDummy immutableDummyClone = (ImmutableDummy) immutableDummyChildClone;
+        ImmutableDummy immutableDummyClone = immutableDummyChildClone;
 
         Assertions.assertEquals(immutableDummyClone.getMap(), immutableDummyChild.getMap());
         Assertions.assertEquals(immutableDummyClone.getCollection(), immutableDummyChild.getCollection());
@@ -163,9 +153,8 @@ class CopiersTest {
         Assertions.assertEquals(immutableDummyClone.getStringValue(), immutableDummyChild.getStringValue());
     }
 
-    @ParameterizedTest
-    @MethodSource("copiers")
-    void giantArrayClone(KaCopier kaCopier) {
+    @Test
+    void giantArrayClone() {
         int maxSize = Integer.MAX_VALUE / 1000000;
         int[][] arr = new int[maxSize][maxSize];
 

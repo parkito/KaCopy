@@ -7,7 +7,11 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.IdentityHashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author Artem Karnov @date 3/2/2018.
@@ -34,7 +38,7 @@ public class KaCopier {
 
     public <T> T deepCopy(T object) {
         if (object == null) return null;
-        Map<Object, Object> clones = new IdentityHashMap<Object, Object>(16);
+        Map<Object, Object> clones = new IdentityHashMap<>(32);
         try {
             return cloneInternal(object, clones);
         } catch (IllegalAccessException ex) {
@@ -86,44 +90,55 @@ public class KaCopier {
     }
 
     @SuppressWarnings("unchecked")
-    private <T> T cloneInternal(T o, Map<Object, Object> clones) throws IllegalAccessException {
-        if (o == null) return null;
-        if (o == this) return null; // We don't need to clone cloner
-        if (o instanceof Enum) return o;
-        Class<T> clz = (Class<T>) o.getClass();
-        if (properties.getIgnoredClasses().contains(clz)) return o;
-        if (isImmutable(clz)) return o;
-        Object clonedPreviously = clones != null ? clones.get(o) : null;
+    private <T> T cloneInternal(T object, Map<Object, Object> clonedFields) throws IllegalAccessException {
+        if (object == null || object == this) {
+            return null;
+        }
+        if (object instanceof Enum) {
+            return object;
+        }
+
+        Class<T> clz = (Class<T>) object.getClass();
+
+        if (properties.getIgnoredClasses().contains(clz) || isImmutable(clz)) {
+            return object;
+        }
+
+        Object clonedPreviously = clonedFields != null ? clonedFields.get(object) : null;
         if (clonedPreviously != null) return (T) clonedPreviously;
 
-        Object fastClone = fastClone(o, clones);
-        if (fastClone != null) {
-            if (clones != null) {
-                clones.put(o, fastClone);
+        Object fastClonedObject = fastClone(object, clonedFields);
+        if (fastClonedObject != null) {
+            if (clonedFields != null) {
+                clonedFields.put(object, fastClonedObject);
             }
-            return (T) fastClone;
+            return (T) fastClonedObject;
         }
         if (clz.isArray()) {
-            return cloneArray(o, clones);
+            return cloneArray(object, clonedFields);
         }
 
-        return cloneObject(o, clones, clz);
+        return cloneObject(object, clonedFields, clz);
     }
 
-    private <T> T cloneObject(T o, Map<Object, Object> clones, Class<T> clz) throws IllegalAccessException {
+    private <T> T cloneObject(T object, Map<Object, Object> clonedFields, Class<T> clz) throws IllegalAccessException {
         T newInstance = properties.getInstanter().newInstance(clz);
-        if (clones != null) {
-            clones.put(o, newInstance);
+        if (clonedFields != null) {
+            clonedFields.put(object, newInstance);
         }
         List<Field> fields = getFieldsForClass(clz);
         for (Field field : fields) {
             field.setAccessible(true);
-            int modifiers = field.getModifiers();
-            if (!Modifier.isStatic(modifiers)) {
-                if (!(properties.isNullTransient() && Modifier.isTransient(modifiers))) {
-                    Object fieldObject = field.get(o);
-                    boolean shouldClone = (properties.isCloneSynthetics() || !field.isSynthetic()) && (properties.isCloneAnonymousParent() || !isAnonymousParent(field));
-                    Object fieldObjectClone = clones != null ? (shouldClone ? cloneInternal(fieldObject, clones) : fieldObject) : fieldObject;
+            int modifier = field.getModifiers();
+            if (!Modifier.isStatic(modifier)) {
+                if (!(properties.isNullTransient() && Modifier.isTransient(modifier))) {
+                    Object fieldObject = field.get(object);
+                    boolean shouldClone = (properties.isCloneSynthetics() || !field.isSynthetic())
+                            && (properties.isCloneAnonymousParent() || !isAnonymousParent(field));
+
+                    Object fieldObjectClone = clonedFields != null
+                            ? (shouldClone ? cloneInternal(fieldObject, clonedFields) : fieldObject)
+                            : fieldObject;
                     field.set(newInstance, fieldObjectClone);
                 }
             }
@@ -132,23 +147,23 @@ public class KaCopier {
     }
 
     @SuppressWarnings("unchecked")
-    private <T> T cloneArray(T o, Map<Object, Object> clones) throws IllegalAccessException {
-        Class<T> clz = (Class<T>) o.getClass();
-        int length = Array.getLength(o);
-        T newInstance = (T) Array.newInstance(clz.getComponentType(), length);
+    private <T> T cloneArray(T object, Map<Object, Object> clones) throws IllegalAccessException {
+        Class<T> clz = (Class<T>) object.getClass();
+        int length = Array.getLength(object);
+        T newArray = (T) Array.newInstance(clz.getComponentType(), length);
         if (clones != null) {
-            clones.put(o, newInstance);
+            clones.put(object, newArray);
         }
         if (clz.getComponentType().isPrimitive() || isImmutable(clz.getComponentType())) {
-            System.arraycopy(o, 0, newInstance, 0, length);
+            System.arraycopy(object, 0, newArray, 0, length);
         } else {
             for (int i = 0; i < length; i++) {
-                Object v = Array.get(o, i);
+                Object v = Array.get(object, i);
                 Object clone = clones != null ? cloneInternal(v, clones) : v;
-                Array.set(newInstance, i, clone);
+                Array.set(newArray, i, clone);
             }
         }
-        return newInstance;
+        return newArray;
     }
 
     private boolean isAnonymousParent(Field field) {

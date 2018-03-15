@@ -16,7 +16,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 public @interface Immutable {
     /**
-     * by default all subclasses of the @Immutable class are not immutable. This can override it.
+     * By default all subclasses of the @Immutable class are not immutable. This can override it.
      *
      * @return true for subclasses of @Immutable class to be regarded as immutable from the cloner
      */

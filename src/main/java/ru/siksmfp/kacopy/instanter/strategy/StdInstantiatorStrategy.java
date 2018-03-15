@@ -78,6 +78,5 @@ public class StdInstantiatorStrategy extends BaseInstantiatorStrategy {
 
         // Fallback instantiator, should work with most modern JVM
         return new UnsafeFactoryInstantiator<T>(type);
-
     }
 }

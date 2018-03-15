@@ -20,10 +20,10 @@ import java.util.regex.Pattern;
 public class CopierInternalProperties {
     private Instanter instanter;
 
-    private Set<Class<?>> ignoredClasses = new HashSet<>();
-    private Map<Class<?>, IFastCloner> fastCloners = new HashMap<>();
-    private ConcurrentHashMap<Class<?>, List<Field>> fieldsCache = new ConcurrentHashMap<>();
-    private ConcurrentHashMap<Class<?>, Boolean> immutableClassesCash = new ConcurrentHashMap<>();
+    private Set<Class<?>> ignoredClasses;
+    private Map<Class<?>, IFastCloner> fastCloners;
+    private ConcurrentHashMap<Class<?>, List<Field>> fieldsCache;
+    private ConcurrentHashMap<Class<?>, Boolean> immutableClassesCash;
 
     private boolean cloneAnonymousParent;
     private boolean isNullTransient;
