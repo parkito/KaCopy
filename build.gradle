@@ -1,4 +1,4 @@
-group 'com.parkito.kacopy'
+group 'ru.siksmfp.kacopy'
 version '0.0.1-SNAPSHOT'
 
 apply plugin: 'java'
@@ -27,7 +27,6 @@ dependencies {
     //test
     testCompile "org.junit.jupiter:junit-jupiter-api:$jUnitApiVersion"
     testCompile "org.junit.jupiter:junit-jupiter-engine:$jUnitEngineVersion"
-    testCompile "org.junit.jupiter:junit-jupiter-params:$jUnitEngineVersion"
 }
 
 //task javadocJar(type: Jar) {
@@ -42,73 +41,4 @@ task sourcesJar(type: Jar) {
 
 artifacts {
     archives jar, /*javadocJar*/ sourcesJar
-}
-
-signing {
-    sign configurations.archives
-}
-
-def getSonatypeProperty(String name) {
-    name = 'sonatype' + name.capitalize()
-    if (project.hasProperty(name)) {
-        return project.getProperties()[name]
-    } else {
-        return ''
-    }
-}
-
-String pomName = 'KaCopy'
-String pomRepositoryUrl = 'https://github.com/parkito/KaCopy'
-String pomScmUrl = 'https://github.com/parkito/KaCopy'
-String pomDescription = 'KaCopy'
-String pomLicenseName = 'MIT'
-String pomLicenseUrl = 'https://github.com/parkito/KaCopy/blob/master/LICENSE'
-String pomDeveloperId = 'parkito'
-String pomDeveloperEmail = 'parkito@siksmfp.ru'
-String pomDeveloperName = 'Artyom Karnov'
-
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-
-            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-                authentication(userName: getSonatypeProperty('username'), password: getSonatypeProperty('password'))
-            }
-
-            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
-                authentication(userName: getSonatypeProperty('username'), password: getSonatypeProperty('password'))
-            }
-
-            pom.project {
-                name pomName
-                description pomDescription
-                url pomRepositoryUrl
-                version version
-                groupId group
-                artifactId pomName
-                packaging 'jar'
-                scm {
-                    connection pomScmUrl
-                    developerConnection pomScmUrl
-                    url pomScmUrl
-                }
-                licenses {
-                    license {
-                        name pomLicenseName
-                        url pomLicenseUrl
-                        distribution 'repo'
-                    }
-                }
-
-                developers {
-                    developer {
-                        id pomDeveloperId
-                        name pomDeveloperName
-                        email pomDeveloperEmail
-                    }
-                }
-            }
-        }
-    }
 }
