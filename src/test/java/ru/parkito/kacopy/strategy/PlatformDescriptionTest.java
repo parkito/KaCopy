@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Artem Karnov @date 3/2/2018.
- * @email artem.karnov@t-systems.com
+ * artyom-karnov@yandex.ru
  */
 public class PlatformDescriptionTest {
 

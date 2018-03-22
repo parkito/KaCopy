@@ -9,7 +9,7 @@ import java.lang.reflect.Field;
  * Helper class basically allowing to get access to {@code sun.misc.Unsafe}
  *
  * @author Artem Karnov @date 3/1/2018.
- * @email artem.karnov@t-systems.com
+ * artyom-karnov@yandex.ru
  */
 public final class UnsafeUtils {
 

@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
  * Denote that the class in an instantiator of a given type
  *
  * @author Artem Karnov @date 2/28/2018.
- * @email artem.karnov@t-systems.com
+ * artyom-karnov@yandex.ru
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)

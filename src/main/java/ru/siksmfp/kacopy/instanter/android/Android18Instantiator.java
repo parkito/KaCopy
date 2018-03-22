@@ -14,7 +14,7 @@ import java.lang.reflect.Method;
  * <code>newInstance</code> now takes a long in parameter
  *
  * @author Artem Karnov @date 3/1/2018.
- * @email artem.karnov@t-systems.com
+ * artyom-karnov@yandex.ru
  */
 @Instantiator(Typology.STANDARD)
 public class Android18Instantiator<T> implements ObjectInstantiator<T> {

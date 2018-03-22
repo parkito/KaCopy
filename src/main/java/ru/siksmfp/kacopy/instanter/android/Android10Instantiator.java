@@ -14,7 +14,7 @@ import java.lang.reflect.Method;
  * {@link ObjectInputStream}.
  *
  * @author Artem Karnov @date 3/1/2018.
- * @email artem.karnov@t-systems.com
+ * artyom-karnov@yandex.ru
  */
 @Instantiator(Typology.STANDARD)
 public class Android10Instantiator<T> implements ObjectInstantiator<T> {

@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 
 /**
  * @author Artem Karnov @date 3/15/2018.
- * @email artem.karnov@t-systems.com
+ * artyom-karnov@yandex.ru
  */
 public class CopierInternalProperties {
     private Instanter instanter;

@@ -14,7 +14,7 @@ import java.lang.reflect.Method;
  * constructors, using internal methods on the Dalvik implementation of {@link ObjectStreamClass}.
  *
  * @author Artem Karnov @date 3/1/2018.
- * @email artem.karnov@t-systems.com
+ * artyom-karnov@yandex.ru
  */
 @Instantiator(Typology.STANDARD)
 public class Android17Instantiator<T> implements ObjectInstantiator<T> {

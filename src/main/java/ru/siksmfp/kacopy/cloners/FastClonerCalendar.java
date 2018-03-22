@@ -10,7 +10,7 @@ import java.util.TimeZone;
 
 /**
  * @author Artem Karnov @date 3/1/2018.
- * @email artem.karnov@t-systems.com
+ * artyom-karnov@yandex.ru
  */
 public class FastClonerCalendar implements IFastCloner {
     public Object clone(Object t, IDeepCloner cloner, Map<Object, Object> clones) {

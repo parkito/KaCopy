@@ -13,7 +13,7 @@ import java.lang.reflect.Method;
  * "this" argument for the method.
  *
  * @author Artem Karnov @date 3/1/2018.
- * @email artem.karnov@t-systems.com
+ * artyom-karnov@yandex.ru
  */
 public abstract class GCJInstantiatorBase<T> implements ObjectInstantiator<T> {
     static Method newObjectMethod = null;

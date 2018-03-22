@@ -11,7 +11,7 @@ import java.lang.reflect.Method;
  * by the {@link ru.siksmfp.kacopy.instanter.api.ObjectInstantiator}s that use it.
  *
  * @author Artem Karnov @date 2/28/2018.
- * @email artem.karnov@t-systems.com
+ * artyom-karnov@yandex.ru
  */
 @SuppressWarnings("restriction")
 class SunReflectionFactoryHelper {

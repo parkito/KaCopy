@@ -8,7 +8,7 @@ import java.lang.reflect.Field;
  * List of constants describing the currently used platform.
  *
  * @author Artem Karnov @date 2/28/2018.
- * @email artem.karnov@t-systems.com
+ * artyom-karnov@yandex.ru
  */
 public final class PlatformDescription {
 

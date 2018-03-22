@@ -28,7 +28,7 @@ import static ru.siksmfp.kacopy.instanter.strategy.PlatformDescription.DALVIK;
  * However, instantiators are stateful and so dedicated to their class.
  *
  * @author Artem Karnov @date 2/28/2018.
- * @email artem.karnov@t-systems.com
+ * artyom-karnov@yandex.ru
  * @see ObjectInstantiator
  */
 public class StdInstantiatorStrategy extends BaseInstantiatorStrategy {

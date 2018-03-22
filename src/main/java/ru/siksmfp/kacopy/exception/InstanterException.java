@@ -5,7 +5,7 @@ package ru.siksmfp.kacopy.exception;
  * runtime to prevent having to catch it.
  *
  * @author Artem Karnov @date 2/28/2018.
- * @email artem.karnov@t-systems.com
+ * artyom-karnov@yandex.ru
  */
 public class InstanterException extends RuntimeException {
     /**

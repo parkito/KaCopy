@@ -14,8 +14,7 @@ import java.lang.reflect.Method;
  * Aonix Perc support team.
  *
  * @author Artem Karnov @date 2/28/2018.
- * @email artem.karnov@t-systems.com
- * @see org.objenesis.instantiator.ObjectInstantiator
+ * artyom-karnov@yandex.ru
  */
 @Instantiator(Typology.STANDARD)
 public class PercInstantiator<T> implements ObjectInstantiator<T> {

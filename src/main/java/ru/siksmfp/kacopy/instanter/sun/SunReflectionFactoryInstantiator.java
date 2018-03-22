@@ -14,7 +14,7 @@ import java.lang.reflect.Constructor;
  * caused by the constructor - however it is not available on every platform.
  *
  * @author Artem Karnov @date 2/28/2018.
- * @email artem.karnov@t-systems.com
+ * artyom-karnov@yandex.ru
  * @see ObjectInstantiator
  */
 @Instantiator(Typology.STANDARD)

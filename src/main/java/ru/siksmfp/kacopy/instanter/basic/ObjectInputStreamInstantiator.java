@@ -23,7 +23,7 @@ import java.io.Serializable;
  * completely different class.
  *
  * @author Artem Karnov @date 2/28/2018.
- * @email artem.karnov@t-systems.com
+ * artyom-karnov@yandex.ru
  */
 @Instantiator(Typology.SERIALIZATION)
 public class ObjectInputStreamInstantiator<T> implements ObjectInstantiator<T> {

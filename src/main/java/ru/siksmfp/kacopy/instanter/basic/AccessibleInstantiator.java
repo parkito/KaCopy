@@ -9,7 +9,7 @@ import ru.siksmfp.kacopy.instanter.annotations.Typology;
  * non-public constructors (if the security manager allows it).
  *
  * @author Artem Karnov @date 2/28/2018.
- * @email artem.karnov@t-systems.com
+ * artyom-karnov@yandex.ru
  */
 @Instantiator(Typology.NOT_COMPLIANT)
 public class AccessibleInstantiator<T> extends ConstructorInstantiator<T> {

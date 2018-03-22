@@ -16,7 +16,7 @@ import java.util.Map;
 
 /**
  * @author Artem Karnov @date 3/6/2018.
- * @email artem.karnov@t-systems.com
+ * artyom-karnov@yandex.ru
  */
 class CopiersTest {
 

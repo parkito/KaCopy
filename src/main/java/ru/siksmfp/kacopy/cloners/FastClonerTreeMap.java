@@ -8,7 +8,7 @@ import java.util.TreeMap;
 
 /**
  * @author Artem Karnov @date 3/1/2018.
- * @email artem.karnov@t-systems.com
+ * artyom-karnov@yandex.ru
  */
 public class FastClonerTreeMap implements IFastCloner {
     @SuppressWarnings({"unchecked", "rawtypes"})

@@ -4,7 +4,7 @@ package ru.siksmfp.kacopy.instanter.api;
  * Defines a strategy to determine the best instantiator for a class.
  *
  * @author Artem Karnov @date 2/28/2018.
- * @email artem.karnov@t-systems.com
+ * artyom-karnov@yandex.ru
  */
 public interface InstantiatorStrategy {
 

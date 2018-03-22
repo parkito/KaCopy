@@ -8,7 +8,7 @@ import java.util.Set;
 
 /**
  * @author Artem Karnov @date 3/1/2018.
- * @email artem.karnov@t-systems.com
+ * artyom-karnov@yandex.ru
  */
 @SuppressWarnings({"unchecked", "rawtypes"})
 public abstract class FastClonerCustomMap<T extends Map> implements IFastCloner {

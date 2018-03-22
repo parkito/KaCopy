@@ -11,7 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * instantiated directly.
  *
  * @author Artem Karnov @date 2/28/2018.
- * @email artem.karnov@t-systems.com
+ * artyom-karnov@yandex.ru
  */
 public abstract class InstanterBase implements Instanter {
 

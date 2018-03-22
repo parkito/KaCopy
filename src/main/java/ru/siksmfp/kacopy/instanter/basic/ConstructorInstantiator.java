@@ -12,7 +12,7 @@ import java.lang.reflect.Constructor;
  * This can deal with default public constructors, but that's about it.
  *
  * @author Artem Karnov @date 2/28/2018.
- * @email artem.karnov@t-systems.com
+ * artyom-karnov@yandex.ru
  * @see ObjectInstantiator
  */
 @Instantiator(Typology.NOT_COMPLIANT)

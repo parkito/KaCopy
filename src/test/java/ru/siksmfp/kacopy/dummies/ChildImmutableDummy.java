@@ -6,7 +6,7 @@ import java.util.Map;
 
 /**
  * @author Artem Karnov @date 3/14/2018.
- * @email artem.karnov@t-systems.com
+ * artyom-karnov@yandex.ru
  */
 public class ChildImmutableDummy extends ImmutableDummy {
     private List<String> list;

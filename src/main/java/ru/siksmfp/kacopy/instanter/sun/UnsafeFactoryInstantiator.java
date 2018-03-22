@@ -13,7 +13,7 @@ import sun.misc.Unsafe;
  * modern JVMs.
  *
  * @author Artem Karnov @date 2/28/2018.
- * @email artem.karnov@t-systems.com
+ * artyom-karnov@yandex.ru
  * @see ObjectInstantiator
  */
 @SuppressWarnings("restriction")

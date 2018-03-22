@@ -11,7 +11,7 @@ import java.lang.reflect.InvocationTargetException;
  * work on GCJ JVMs. This instantiator will not call any constructors.
  *
  * @author Artem Karnov @date 2/28/2018.
- * @email artem.karnov@t-systems.com
+ * artyom-karnov@yandex.ru
  */
 @Instantiator(Typology.STANDARD)
 public class GCJInstantiator<T> extends GCJInstantiatorBase<T> {

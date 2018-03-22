@@ -9,7 +9,7 @@ import ru.siksmfp.kacopy.exception.InstanterException;
 
 /**
  * @author Artem Karnov @date 3/2/2018.
- * @email artem.karnov@t-systems.com
+ * artyom-karnov@yandex.ru
  */
 public class InstanterExceptionTest {
 

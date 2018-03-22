@@ -4,7 +4,7 @@ import ru.siksmfp.kacopy.instanter.strategy.StdInstantiatorStrategy;
 
 /**
  * @author Artem Karnov @date 2/28/2018.
- * @email artem.karnov@t-systems.com
+ * artyom-karnov@yandex.ru
  */
 public class InstanterStd extends InstanterBase {
 
