@@ -97,7 +97,7 @@ API consists of next elements
 
 ## Versions
 
-All major versions (x.*.* ) are backward compatible. Minor versions (*.x.y) contain only bug fixing and no api changes
+All major versions (x.\*.* ) are backward compatible. Minor versions (*.x.y) contain only bug fixing and no api changes
 
 ## Examples
 ```java
