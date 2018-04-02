@@ -7,12 +7,7 @@ import ru.siksmfp.kacopy.dummies.ChildImmutableDummy;
 import ru.siksmfp.kacopy.dummies.ImmutableDummy;
 import ru.siksmfp.kacopy.dummies.MutableDummy;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author Artem Karnov @date 3/6/2018.

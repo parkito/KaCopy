@@ -24,13 +24,9 @@
      * [Gradle](#gradle)
      * [Maven](#maven)
   * [Api](#api)
-     * [OOP](#aliases)
-     * [Utils](#sequence)
   * [Versions](#versions)
      * [Version table](#aliases)
   * [Examples](#examples)
-     * [Example 1) For every 7 photos display an ad:](#example-1-for-every-7-photos-display-an-ad)
-     * [More examples](#more-examples)
   * [License](#license)
 
 ## Theory
@@ -46,52 +42,70 @@ entirely new instance variables, it does not share objects with the old.
 
 ## Common usage
 
-Content will be here very soon
+**ru.siksmfp.kacopy.api.KaCopier** is the main api class of KaCopy.
+So, you need just create instance of KaCopier and use all functionality of framework
 
 ```java
-// Content will be here very soon
+KaCopier copier = new KaCopier(); 
 ```
+KaCopy has next public elements
+
+* **CopierSettings** is the property class for storing additional settings.
+You could use it if extra settings is needed.
+For example next instruction allows clone anonymous parent of class.
+```java
+copier.settings.cloneAnonymousParent(true); 
+```
+* **T deepCopy(T object)** is the method for deep object's cloning. It returns new instance of
+ object with the same content as original has. 
+ 
+ * **T shallowCopy(T object)** is the method for shallow copying.
+  A new object is created that has an exact copy of the values in the original object. If any of the fields of the object are references to other objects, just the reference addresses are copied i.e., only the memory address is copied
 
 ## Installation
 
 ### Maven
 
 ```bash
-Content will be here very soon
+<dependency>
+    <groupId>ru.siksmfp</groupId>
+    <artifactId>kacopy</artifactId>
+    <version>0.0.8</version>
+</dependency>
 ```
 
 ### Gradle
 
 ```bash
-Content will be here very soon
+compile 'ru.siksmfp:kacopy:0.0.8'
 ```
 
 ## API
 
-#### OOP
+API consists of next elements
 
+**CopierSettings** is the class contains optional setting for KaCopy class
 
-#### Utils
+**IDeepCloner** is the interface describes deep cloners - instrument for overriding cloning of adjusted classed. So, you can implement your clone-logic for specific classes.
+
+**IFastCloner** is the interface for fast cloners overriding. You can implement specific logic for fast cloning specific classes 
+
+**Immutable** is a annotation for marking class which doesn't have needs for copying 
+
+**KaCopier** is the main class for full functional providing
 
 
 ## Versions
 
+All major versions (x.*.* ) are backward compatible. Minor versions (*.x.y) contain only bug fixing and no api changes
 
 ## Examples
-
-`Content will be here very soon` Content will be here very soon.
-
-### Example 1) OOP-style
-
 ```java
-// Content will be here very soon
+List<Integer> integerList = Arrays.asList(1, 2, 3, 4, 5);
+List<Integer> integerListClone = kaCopier.deepCopy(integerList);
 ```
-**or** (as number 1 on sequence can be ommited):
 
-```java
-// Content will be here very soon
-```
-> **Disclaimer**: All arrays mentioned in this section must exist for the examples to work.
+`integerListClone` is the full clone of `integerList`
 
 ## License
 
