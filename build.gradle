@@ -58,6 +58,7 @@ String pomLicenseUrl = 'https://github.com/parkito/KaCopy/blob/master/LICENSE'
 String pomDeveloperId = 'parkito'
 String pomDeveloperEmail = 'parkito@siksmfp.ru'
 String pomDeveloperName = 'Artyom Karnov'
+String currentGroupId = 'ru.siksmfp'
 
 uploadArchives {
     repositories {
@@ -77,7 +78,7 @@ uploadArchives {
                 description pomDescription
                 url pomRepositoryUrl
                 version version
-                groupId group
+                groupId currentGroupId
                 artifactId pomName
                 packaging 'jar'
                 scm {

@@ -69,15 +69,15 @@ copier.settings.cloneAnonymousParent(true);
 ```bash
 <dependency>
     <groupId>ru.siksmfp</groupId>
-    <artifactId>kacopy</artifactId>
-    <version>0.0.8</version>
+    <artifactId>KaCopy</artifactId>
+    <version>0.0.9</version>
 </dependency>
 ```
 
 ### Gradle
 
 ```bash
-compile 'ru.siksmfp:kacopy:0.0.8'
+compile 'ru.siksmfp:KaCopy:0.0.9'
 ```
 
 ## API
