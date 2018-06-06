@@ -1,6 +1,6 @@
 <h3 align="center">
   <br>
-   <img src="https://s8.hostingkartinok.com/uploads/images/2018/03/68b491a97174353014a1f92aaecba400.png" alt="Logo ArrayMixer" title="KaCopy logo" />
+   <img src="https://s8.hostingkartinok.com/uploads/images/2018/03/68b491a97174353014a1f92aaecba400.png" title="KaCopy logo" />
   <br>
  <strong>KaCopy</strong> is the compact high effective library for deep cloning java objects 
 </h3>
